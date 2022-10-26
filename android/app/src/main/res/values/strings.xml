@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Carapp</string>
+    <string name="title_activity_main">Carapp</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
+  <string name="facebook_app_id">1064954617528928</string>
+  <string name="fb_app_id">1064954617528928</string>
+  <string name="fb_app_name">CarApp</string>
+  <string name="fb_login_protocol_scheme">fb1064954617528928</string>
+  <string name="facebook_client_token">e4d3a55639ec16e38fd0aa1954d9cec1</string>
+</resources>
+
