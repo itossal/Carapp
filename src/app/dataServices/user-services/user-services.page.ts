@@ -27,5 +27,24 @@ export class UserServicesPage  {
   
     }
  
-
+    createAccount(email,nom,password,phone): Observable<any> {
+      var headers = new HttpHeaders();
+      headers.append('Access-Control-Allow-Origin' , '*');
+      headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+      headers.append('Accept','application/text');
+      headers.append('content-type','application/json');
+       let options = { headers:headers}; 
+        return( this.http.get(`https://it-open-sprite.com/carapp/users.php?action=signin&nom=${nom}&phone=${phone}&email=${email}&password=${password}`,options));
+    
+      }
+      getUserCars(email,nom,password,phone): Observable<any> {
+        var headers = new HttpHeaders();
+        headers.append('Access-Control-Allow-Origin' , '*');
+        headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+        headers.append('Accept','application/text');
+        headers.append('content-type','application/json');
+         let options = { headers:headers}; 
+          return( this.http.get(`https://it-open-sprite.com/carapp/cars.php?action=signin&nom=${nom}&phone=${phone}&email=${email}&password=${password}`,options));
+      
+        }
 }

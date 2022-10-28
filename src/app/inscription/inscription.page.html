@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inscription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+           
+               
+      <form (ngSubmit)="newprofile()">
+        <ion-item class="item-profile">
+         
+          <ion-input type="text" placeholder="Nom et Prénom" [(ngModel)]="single_user.nom" ngDefaultControl  name="nom"></ion-input>
+        </ion-item>
+        <ion-item  class="item-profile">
+         
+          <ion-input [(ngModel)]="single_user.pw" placeholder="Mot de passe" ngDefaultControl  name="pw" ></ion-input>
+        </ion-item>
+        <ion-item  class="item-profile">
+        
+          <ion-input [(ngModel)]="single_user.confirmpw" placeholder="Confirmer mot de passe" ngDefaultControl  name="confirmpw" ></ion-input>
+        </ion-item>
+        <ion-item  class="item-profile">
+          
+          <ion-input [(ngModel)]="single_user.email" placeholder="E-mail" ngDefaultControl  name="email"></ion-input>
+        </ion-item>
+      <ion-item  class="item-profile">
+      
+        <ion-input [(ngModel)]="single_user.phone" placeholder="Téléphone" ngDefaultControl  name="phone"></ion-input>
+      </ion-item>
+     
+        <ion-button  expand="full" class="btnprofile" type="submit" block>Enregistrer</ion-button>
+    
+      </form>   
+    
+
+</ion-content>

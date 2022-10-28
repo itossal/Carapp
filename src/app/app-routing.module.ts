@@ -34,6 +34,14 @@ const routes: Routes = [
   {
     path: 'user-services',
     loadChildren: () => import('./dataServices/user-services/user-services.module').then( m => m.UserServicesPageModule)
+  },
+  {
+    path: 'inscription',
+    loadChildren: () => import('./inscription/inscription.module').then( m => m.InscriptionPageModule)
+  },
+  {
+    path: 'storage-services',
+    loadChildren: () => import('./dataServices/storage-services/storage-services.module').then( m => m.StorageServicesPageModule)
   }
 ];
 @NgModule({

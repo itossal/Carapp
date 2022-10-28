@@ -20,11 +20,18 @@
       <ion-col>
         <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
         <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
+        <a [routerLink]="['/inscription']" style="float:right" class="small-text">Inscription</a>
       </ion-col>
     </ion-row>
   </form>
   <ion-button expand="full" color="primary" (click)="fbLogin()">
     Login with
     <ion-icon name="logo-facebook"></ion-icon>
+  </ion-button>
+
+
+  <ion-button expand="full" color="primary" (click)="gLogin()">
+    Signin with google
+    <ion-icon name="logo-google"></ion-icon>
   </ion-button>
 </ion-content>
