@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Information véhicule</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="newVehicule()">
+    <ion-label class="label">Marque</ion-label>
+    <ion-searchbar (ionInput)="inputChanged($event)" value="{{name_marque}}" name="marque" id="{{id_marque}}" placeholder="Taper marque"></ion-searchbar>
+ 
+    <ion-list  >
+<ion-item *ngFor="let item of selectedmark" (click)="selected(item)">
+  {{item.name}}
+</ion-item>
+</ion-list>
+<ion-label class="label">Modéle</ion-label>
+<ion-searchbar (ionInput)="inputmodelChanged($event)" value="{{name_model}}" id="{{id_model}}" name="model"  placeholder="Taper modele"></ion-searchbar>
+
+<ion-list  >
+<ion-item *ngFor="let item of selectedmodel" (click)="fselectedmodel(item)">
+  {{item.name}}
+</ion-item>
+</ion-list>
+<ion-label class="label">Numéreau de serie</ion-label>
+<ion-item  class="item-profile">
+<ion-input [(ngModel)]="single_car.nserie"  placeholder="N de serie" ngDefaultControl value="{{nserie}}" name="nserie" ></ion-input>
+</ion-item>
+<ion-label class="label">Compteur</ion-label>
+<ion-item  class="item-profile">
+<ion-input [(ngModel)]="single_car.compteur"  placeholder="Compteur" ngDefaultControl value="{{compteur}}" id="compteur" name="compteur" ></ion-input><ion-button (click)="compteurChanged()" class="btn_compteur">ENREGISTERER<br/> {{datemajcpt}}</ion-button>
+</ion-item>
+<ion-label class="label">Date de mise en circulation</ion-label>
+<ion-item class="item-profile">
+  <ion-label>Date</ion-label>
+  <ion-input
+    value="{{datemc}}"
+    id="date"
+    class="ion-text-end"
+    readonly="true"
+  ></ion-input>
+  <ion-popover trigger="date" size="cover">
+    <ng-template>
+      <ion-datetime
+      [(ngModel)]="single_car.datemc" 
+       [showDefaultButtons]="true"
+        #popoverDatetime
+        presentation="date" 
+        value="{{datemc}}"
+        placeholder="Date de mise en circulation"
+        ngDefaultControl
+        name="datemc"
+        (ionChange)="date = popoverDatetime.value;">
+      </ion-datetime>
+    </ng-template>
+  </ion-popover>
+</ion-item>
+<!--ion-item  class="item-profile">
+   
+  <ion-datetime [(ngModel)]="single_car.datemc"   presentation="date" value="2022-04-21T00:00:00" placeholder="Date de mise en circulation" ngDefaultControl  name="datemc" ></ion-datetime>
+
+</ion-item-->
+
+    <ion-button expand="block" class="btnprofile" type="submit" block>Enregistrer</ion-button>
+
+  </form>   
+
+  <ion-button color="danger" expand="full">NOTIFICATION</ion-button>
+  <ion-list>
+   
+    <ion-item *ngFor="let item of listoperationall"  class="">
+     
+      
+      <div (click)="renderOperation(item.ID)" class="centre">  
+          <span class="centre">{{item.operation_name}}</span><br>
+          <span class="centre">{{item.typename}}</span>
+        </div>
+
+      <div class="">  
+        <span class="">{{item.date_crea}}</span><br>
+        <span class="">{{item.compteur}}</span>
+      </div>
+    <div class="">  
+      <span class="">{{item.datexp}}</span><br>
+      <span class="">{{item.kmexp}}</span>
+    </div>
+
+    </ion-item>
+ 
+  </ion-list>
+  <ion-button (click)="Listoperation()" expand="block">Consulter Opérations</ion-button>
+  <ion-button (click)="Addoperation()" expand="block">Ajouter une Opérations</ion-button>
+</ion-content>

@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>listoperations</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-segment [scrollable]="true" >
+    <ion-segment-button checked (click)="segmentButtonClicked($event)" value="all">
+      <ion-icon name="apps-outline"></ion-icon>
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="segmentButtonClicked($event)" value="entretien">
+      <ion-icon name="construct-outline"></ion-icon>
+      <ion-label>entretien</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="segmentButtonClicked($event)" value="carburant">
+      <ion-icon name="battery-charging-outline"></ion-icon>
+      <ion-label>carburant</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (click)="segmentButtonClicked($event)" value="tax">
+      <ion-icon name="cash-outline"></ion-icon>
+      <ion-label>tax</ion-label>
+    </ion-segment-button>
+
+  </ion-segment>
+
+
+  <div *ngIf="listoperationlenght">Content to render when condition is true.
+  <ion-list>
+   
+    <ion-item *ngFor="let item of listoperationall"  class="item-profile">
+     
+      
+      <div (click)="renderOperation(item.ID)" class="centre">  
+          <span class="centre">{{item.operation_name}}</span><br>
+          <span class="centre">{{item.typename}}</span>
+        </div>
+
+      <div class="">  
+        <span class="">{{item.date_crea}}</span><br>
+        <span class="">{{item.compteur}}</span>
+      </div>
+    <div class="">  
+      <span class="">{{item.datexp}}</span><br>
+      <span class="">{{item.kmexp}}</span>
+    </div>
+
+    </ion-item>
+ 
+  </ion-list>
+</div>
+</ion-content>

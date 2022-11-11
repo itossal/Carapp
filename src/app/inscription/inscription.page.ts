@@ -77,7 +77,7 @@ if (confirm_password == password){
     }
     if(res.res == 'succes'){
    
-      this.router.navigateByUrl(`/tabs`);
+      this.router.navigateByUrl(`/profile`);
     }
     if (res.res == 'error'){
       this.presentToasterror('middle');

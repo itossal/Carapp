@@ -11,7 +11,7 @@
       <form (ngSubmit)="profile()">
         <ion-item class="item-profile">
          
-          <ion-input type="text" placeholder="Nom et Prénom" [(ngModel)]="single_user.nom" ngDefaultControl  name="nom"></ion-input>
+          <ion-input type="text" placeholder="Nom et Prénom" [(ngModel)]="single_user.nom" ngDefaultControl value="{{user_name}}" name="nom"></ion-input>
         </ion-item>
         <ion-item  class="item-profile">
          
@@ -23,16 +23,27 @@
         </ion-item>
         <ion-item  class="item-profile">
           
-          <ion-input [(ngModel)]="single_user.email" placeholder="E-mail" ngDefaultControl  name="email"></ion-input>
+          <ion-input [(ngModel)]="single_user.email" placeholder="E-mail" ngDefaultControl value="{{user_email}}" name="email"></ion-input>
         </ion-item>
       <ion-item  class="item-profile">
       
-        <ion-input [(ngModel)]="single_user.phone" placeholder="Téléphone" ngDefaultControl  name="phone"></ion-input>
+        <ion-input [(ngModel)]="single_user.phone" placeholder="Téléphone" ngDefaultControl value="{{user_phone}}"  name="phone"></ion-input>
       </ion-item>
      
         <ion-button  expand="full" class="btnprofile" type="submit" block>Enregistrer</ion-button>
     
       </form>   
-    
+      <ion-button  expand="full" class="btnprofile" (click)="addCar()" type="submit" block>Ajouter une véhicule</ion-button>
+   
+
+      <div class="carlist">
+        <div class="xc" *ngFor="let car of carlist">
+          <div (click)="renderCar(car.id)" class="card_cat_product">
+          <img [src] ="car.logo" />
+          <span [innerText]="car.marquename"></span>  <span [innerText]="car.modelname"></span>  
+          <span [innerText]="car.compteur"></span>
+          </div>
+        </div>
+      </div>
 
 </ion-content>

@@ -42,6 +42,30 @@ const routes: Routes = [
   {
     path: 'storage-services',
     loadChildren: () => import('./dataServices/storage-services/storage-services.module').then( m => m.StorageServicesPageModule)
+  },
+  {
+    path: 'vehicule',
+    loadChildren: () => import('./vehicule/vehicule.module').then( m => m.VehiculePageModule)
+  },
+  {
+    path: 'operation',
+    loadChildren: () => import('./operation/operation.module').then( m => m.OperationPageModule)
+  },
+  {
+    path: 'mycar/:id',
+    loadChildren: () => import('./mycar/mycar.module').then( m => m.MycarPageModule)
+  },
+  {
+    path: 'singleoperation',
+    loadChildren: () => import('./singleoperation/singleoperation.module').then( m => m.SingleoperationPageModule)
+  },
+  {
+    path: 'listoperations',
+    loadChildren: () => import('./listoperations/listoperations.module').then( m => m.ListoperationsPageModule)
+  },
+  {
+    path: 'sigleoperationdetail/:id',
+    loadChildren: () => import('./sigleoperationdetail/sigleoperationdetail.module').then( m => m.SigleoperationdetailPageModule)
   }
 ];
 @NgModule({

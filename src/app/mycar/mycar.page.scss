@@ -19,14 +19,22 @@
     --border-radius: 21px;
     
 }
-.carlist {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .xc {
-    display: block;
-    //justify-content: center;
-    align-items: center;
-    margin:2rem;
+.label{
+    width: 90%;
+    display: table;
+    margin: 0 auto;
+    /* border: solid 1px #a9a3a3; */
+    /* border-radius: 20px; */
+    margin-top: 15px;
+    font-size: 16px;
+    color: #a9a3a3;
+
+}
+.btn_compteur{
+    float: right;
+    height: 100%;
+}
+ion-datetime {
+    position: relative;
+    margin-bottom: -40px;
   }

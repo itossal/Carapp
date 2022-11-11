@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Information véhicule</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="newVehicule()">
+
+    <ion-searchbar (ionInput)="inputChanged($event)" value="{{name_marque}}" name="marque" id="{{id_marque}}" placeholder="Taper marque"></ion-searchbar>
+ 
+    <ion-list  >
+<ion-item *ngFor="let item of selectedmark" (click)="selected(item)">
+  {{item.name}}
+</ion-item>
+</ion-list>
+
+<ion-searchbar (ionInput)="inputmodelChanged($event)" value="{{name_model}}" id="{{id_model}}" name="model"  placeholder="Taper modele"></ion-searchbar>
+
+<ion-list  >
+<ion-item *ngFor="let item of selectedmodel" (click)="fselectedmodel(item)">
+  {{item.name}}
+</ion-item>
+</ion-list>
+<ion-item  class="item-profile">
+<ion-input [(ngModel)]="single_car.nserie" placeholder="N de serie" ngDefaultControl  name="nserie" ></ion-input>
+</ion-item>
+<ion-item  class="item-profile">
+<ion-input [(ngModel)]="single_car.compteur" placeholder="Compteur" ngDefaultControl  name="compteur" ></ion-input>
+</ion-item>
+<ion-label class="label">Date de mise en circulation</ion-label>
+<ion-item  class="item-profile">
+   
+  <ion-datetime [(ngModel)]="single_car.datemc" placeholder="Date de mise en circulation" ngDefaultControl  name="datemc" ></ion-datetime>
+
+</ion-item>
+
+    <ion-button  expand="full" class="btnprofile" type="submit" block>Enregistrer</ion-button>
+
+  </form>   
+</ion-content>

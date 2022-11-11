@@ -14,7 +14,6 @@ import {isPlatform} from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 @NgModule({
-
 providers:[Storage],
 })
 
@@ -35,13 +34,24 @@ user:any;
       }
 
   async ngOnInit() {
- //  await this.storage.create();
-
+  await this.storage.create();
+  
+  const tabs = document.getElementById("tabs_panel");
+  tabs.style.display = 'none';
+  const back_btn_topBar = document.getElementById("back_btn_topBar");
+  back_btn_topBar.style.display = 'none';   
   }
 
  async gLogin(){
       this.user = await GoogleAuth.signIn();
-      console.log('user : ',this.user);
+ 
+      this.UserServicesPage.getuserLogindata(this.user.email).subscribe(async (res) =>{
+        if(res.res == 'success' ){
+        this.setStorageValue('resuserData',res.resdata);
+        }
+      });
+
+      this.router.navigateByUrl(`/profile`);
  }
 
 
@@ -89,12 +99,12 @@ async gsignOut(){
 let email = this.single_login['email'];
 let password = this.single_login['password'];
     this.UserServicesPage.submitLogin(email,password).subscribe(async (res) =>{
-      console.log(res.resdata.id);
+      console.log(res.resdata);
       if(res.res == 'success' ){
-        this.setStorageValue('aaaaa','bbbbb');
+    
       this.setStorageValue('resuserData',res.resdata);
-      console.log(this.setStorageValue('resuserData',JSON.stringify(res.resdata.id)));
-     // this.router.navigateByUrl(`/tabs`);
+   
+      this.router.navigateByUrl(`/profile`);
   
        }
        if(res.res == 'error' ){

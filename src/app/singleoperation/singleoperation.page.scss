@@ -1,0 +1,56 @@
+
+.item-profile{
+    width: 90%;
+    display: table;
+    margin: 0 auto;
+    border: solid 1px #a9a3a3;
+    border-radius: 20px;
+    margin-top: 15px;
+    font-size: 16px;
+}
+.btnprofile{
+    width: 90%;
+    display: table;
+    margin: 0 auto;
+    margin-top: 15px;
+    font-size: 16px;
+}
+.btnprofile {
+    --border-radius: 21px;
+    
+}
+.label{
+    width: 90%;
+    display: table;
+    margin: 0 auto;
+    /* border: solid 1px #a9a3a3; */
+    /* border-radius: 20px; */
+    margin-top: 15px;
+    font-size: 16px;
+    color: #a9a3a3;
+
+}
+.btn_compteur{
+    float: right;
+    height: 100%;
+}
+
+.carlist {
+    display: grid;
+    text-align: center;
+    
+    margin: 0 auto;
+    width: 50%;
+    grid-template-columns: repeat(1, 1fr);
+  }
+  
+  .xc {  
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin:2rem;
+  }
+  ion-datetime {
+    position: relative;
+    margin-bottom: -40px;
+  }
