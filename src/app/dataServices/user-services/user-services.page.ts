@@ -189,5 +189,17 @@ export class UserServicesPage  {
                             return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=getlistoperationbyid&id=${id}&user_id=${user_id}&car_id=${car_id}`,options));
                         
                           }
+                          setUserToken(user_id,token): Observable<any> {
+                            var headers = new HttpHeaders();
+                            headers.append('Access-Control-Allow-Origin' , '*');
+                            headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                            headers.append('Accept','application/text');
+                            headers.append('content-type','application/json');
+                             let options = { headers:headers}; 
+                           
+                              const encoded = encodeURI(token);
+                              return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/users.php?action=setusertoken&user_id=${user_id}&token=${encoded}`,options));
+                          
+                            }
               
 }
