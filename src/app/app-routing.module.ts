@@ -66,6 +66,10 @@ const routes: Routes = [
   {
     path: 'sigleoperationdetail/:id',
     loadChildren: () => import('./sigleoperationdetail/sigleoperationdetail.module').then( m => m.SigleoperationdetailPageModule)
+  },
+  {
+    path: 'notif-services',
+    loadChildren: () => import('./notif-services/notif-services.module').then( m => m.NotifServicesPageModule)
   }
 ];
 @NgModule({

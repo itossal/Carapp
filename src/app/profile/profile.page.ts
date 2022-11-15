@@ -7,7 +7,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import {UserServicesPage} from 'src/app/dataServices/user-services/user-services.page';
 import {StorageServicesPage} from 'src/app/dataServices/storage-services/storage-services.page';
-
+import { NotifServicesService } from '../services/notif-services.service';
 import {
   ActionPerformed,
   PushNotificationSchema,
@@ -40,6 +40,7 @@ export class ProfilePage implements OnInit {
     public storage: Storage,
     public StorageServicesPage :StorageServicesPage,
     private toastController: ToastController,
+    private NotifServicesService : NotifServicesService
      ) { }
 
      async ngOnInit() {
@@ -82,8 +83,8 @@ export class ProfilePage implements OnInit {
    
        
     });
-
-
+    this.NotifServicesService.initPush();
+/*
     console.log('Initializing HomePage');
 
     // Request permission to use push notifications
@@ -124,7 +125,7 @@ export class ProfilePage implements OnInit {
       (notification: ActionPerformed) => {
         alert('Push action performed: ' + JSON.stringify(notification));
       }
-    );
+    );*/
   }
   single_user:any = {}
       addCar(){
