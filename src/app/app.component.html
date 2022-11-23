@@ -1,8 +1,12 @@
 <ion-app>
+  
   <ion-header [translucent]="true" color="customflx">
     <ion-toolbar color="customflx" class="border_0">
-    
-   
+      <ion-avatar id="imgavatar"  slot="start" *ngIf="userimgUrl ; else noavatar">
+        <img  (click)="logout()" [src]="userimgUrl" >
+        </ion-avatar>
+        <ng-template  #noavatar>  <ion-icon id="imgavatar" size="large" #noavatar (click)="logout()" name="person-circle-outline"></ion-icon></ng-template>
+      
        <ion-buttons slot="end" (click)="btnBack()" class="btnBack color_black"> 
         <ion-icon name="chevron-back-outline" id="back_btn_topBar" class="back_btn_topBar"></ion-icon>
       </ion-buttons>

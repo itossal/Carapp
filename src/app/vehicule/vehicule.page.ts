@@ -39,7 +39,7 @@ name_marque;
 id_model;
 name_model;
 currentUserinfo;
-
+nbr_jour_notif_compteur = 0;
 
 
 
@@ -69,7 +69,7 @@ public autocompletemarque : AutocompleteMarqueService,
 
   });
 
-
+  this.nbr_jour_notif_compteur = 0;
   }
 
 
@@ -228,7 +228,7 @@ newVehicule(){
   console.log("id_model",this.id_model);
   console.log(this.single_car);
 
-let data="&id_user=2&id_marque="+this.id_marque+"&id_model="+this.id_model+"&nserie="+this.single_car['nserie']+"&compteur="+this.single_car['compteur']+"&datemc="+this.single_car['datemc'];
+let data="&id_user="+ this.currentUserinfo.id +"&id_marque="+this.id_marque+"&id_model="+this.id_model+"&nserie="+this.single_car['nserie']+"&compteur="+this.single_car['compteur']+"&nbr_jour_notif_compteur="+this.single_car['nbr_jour_notif_compteur']+"&datemc="+this.single_car['datemc'];
 this.UserServicesPage.addnewCar(data).subscribe(async (res) =>{
 
 console.log(res);
@@ -243,7 +243,15 @@ if (res.inserted == 'success'){
 
 }
 
+inputnbrjrChanged($event:any ={}) {
+  let value = $event.target.value;
+  console.log(value);
+    if (value >= 15){  
+      this.nbr_jour_notif_compteur = 15;
 
+      this.ngOnInit();
+    }
+}
 async setStorageValue(key: string, value: any): Promise<any> {
   try {
   const result = await this.storage.set(key, value);

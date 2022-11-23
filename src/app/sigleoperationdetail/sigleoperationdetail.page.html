@@ -14,10 +14,14 @@
       </div>
     </div>
   </div>
-  <form (ngSubmit)="newOperation()">
+  <ion-item>
+    <ion-label>Done</ion-label>
+    <ion-toggle [enableOnOffLabels]="true" [checked]="opstate" (ionChange)="changeOperationstate($event)" color="success" slot="end"></ion-toggle>
+  </ion-item>
+  <form (ngSubmit)="UpdateOperation()"> 
 
 <ion-item  class="item-profile">
-<ion-input [(ngModel)]="single_operation.date_today" value="{{date_crea}}"   ngDefaultControl  id="date_today" name="date_today" >{{dateValue}}</ion-input>
+<ion-input [(ngModel)]="single_operation.date_today" value="{{date_crea}}"   ngDefaultControl  id="date_today" name="date_today" ></ion-input>
 </ion-item>
 <ion-item  class="item-profile">
   <ion-input [(ngModel)]="single_operation.operation_name" value="{{operation_name}}"  placeholder="Nom opération" ngDefaultControl  id="operation_name" name="operation_name" ></ion-input>

@@ -128,14 +128,14 @@ export class UserServicesPage  {
               
                 }
 
-                changeCarcompteur(id_car,compteur): Observable<any> {
+                changeCarcompteur(id_user,id_car,compteur): Observable<any> {
                   var headers = new HttpHeaders();
                   headers.append('Access-Control-Allow-Origin' , '*');
                   headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
                   headers.append('Accept','application/text');
                   headers.append('content-type','application/json');
                    let options = { headers:headers}; 
-                    return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=changecarcompteur&id_car=${id_car}&compteur=${compteur}`,options));
+                    return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=changecarcompteur&id_user=${id_user}&id_car=${id_car}&compteur=${compteur}`,options));
                 
                   }
 
@@ -149,6 +149,17 @@ export class UserServicesPage  {
                       return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=addnewoperation&${data}&user_id=${user_id}&car_id=${car_id}`,options));
                   
                     }
+                    updateOperation(user_id,operation_id,car_id,data): Observable<any> {
+                      var headers = new HttpHeaders();
+                      headers.append('Access-Control-Allow-Origin' , '*');
+                      headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                      headers.append('Accept','application/text');
+                      headers.append('content-type','application/json');
+                       let options = { headers:headers}; 
+                        return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=updateoperation&${data}&user_id=${user_id}&car_id=${car_id}&operation_id=${operation_id}`,options));
+                    
+                      }
+                    
                     getlistOperation(user_id,car_id): Observable<any> {
                       var headers = new HttpHeaders();
                       headers.append('Access-Control-Allow-Origin' , '*');
@@ -201,5 +212,28 @@ export class UserServicesPage  {
                               return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/users.php?action=setusertoken&user_id=${user_id}&token=${encoded}`,options));
                           
                             }
+                            setOperationstate(user_id,car_id,id,state): Observable<any> {
+                              var headers = new HttpHeaders();
+                              headers.append('Access-Control-Allow-Origin' , '*');
+                              headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                              headers.append('Accept','application/text');
+                              headers.append('content-type','application/json');
+                               let options = { headers:headers}; 
+                             
+                                
+                                return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=setoperationstate&id=${id}&user_id=${user_id}&car_id=${car_id}&state=${state}`,options));
+                            
+                              }  
+                              
+                              updateCar(car_id,data): Observable<any> {
+                                var headers = new HttpHeaders();
+                                headers.append('Access-Control-Allow-Origin' , '*');
+                                headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                                headers.append('Accept','application/text');
+                                headers.append('content-type','application/json');
+                                 let options = { headers:headers}; 
+                                  return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=updatecar&${data}&car_id=${car_id}`,options));
+                              
+                                }                       
               
 }

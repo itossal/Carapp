@@ -33,6 +33,7 @@ export class ProfilePage implements OnInit {
   user_email;
   user_phone;
   carlist;
+  userimgUrl;
   carlistcomplete : any ={}
   constructor(   private router: Router,
     private http: HttpClient, 
@@ -48,6 +49,10 @@ export class ProfilePage implements OnInit {
      tabs.style.display = 'flex';
   const back_btn_topBar = document.getElementById("back_btn_topBar");
   back_btn_topBar.style.display = 'block';
+  const imgavatar = document.getElementById("imgavatar");
+  imgavatar.style.display = 'block';  
+  
+
       await this.storage.create();
     this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
       console.log('resuserData result' , result);
@@ -57,17 +62,26 @@ export class ProfilePage implements OnInit {
        console.log('error: '+ e);
      }); 
    
+     this.userimgUrl =  this.getStorageValue('userimgUrl').then(result => {
+      console.log('userimgUrl result' , result);
+      return result;
+}).catch(e => {
+     console.log('error: '+ e);
+   }); 
+
+
+
      this.user_name = this.currentUserinfo.nom;
      this.user_email = this.currentUserinfo.email;
      this.user_phone = this.currentUserinfo.phone;
 
 
-
+       
 
      this.UserServicesPage.getUserCars(this.currentUserinfo.id).subscribe(async (res) =>{
     this.carlist = res.carlist;
     console.log(this.carlist);
-
+      
           this.carlistcomplete =  Object.values(this.carlist).filter(  
           (item) => { 
             console.log(item);
@@ -198,4 +212,7 @@ export class ProfilePage implements OnInit {
     return false;
     }
   }
+
+
+
 }

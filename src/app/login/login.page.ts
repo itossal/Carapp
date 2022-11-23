@@ -19,18 +19,16 @@ providers:[Storage],
 
 export class LoginPage implements OnInit  {
   token :any;
-user:any;
+  user:any;
   constructor(
- //  private storage: Storage ,
+
     private router: Router,
     private http: HttpClient, 
     private UserServicesPage : UserServicesPage,
     public storage: Storage  
       ) {  
-    
-          GoogleAuth.initialize();
+        GoogleAuth.initialize();
       
-       
       }
 
   async ngOnInit() {
@@ -40,18 +38,25 @@ user:any;
   tabs.style.display = 'none';
   const back_btn_topBar = document.getElementById("back_btn_topBar");
   back_btn_topBar.style.display = 'none';   
+  const imgavatar = document.getElementById("imgavatar");
+  imgavatar.style.display = 'none';   
   }
 
  async gLogin(){
       this.user = await GoogleAuth.signIn();
- 
+ console.log( this.user);
+
+ this.setStorageValue('userimgUrl',this.user.imageUrl);
       this.UserServicesPage.getuserLogindata(this.user.email).subscribe(async (res) =>{
         if(res.res == 'success' ){
+          console.log("res",res)
+          setTimeout(() => {
         this.setStorageValue('resuserData',res.resdata);
+        this.router.navigateByUrl(`/profile`);
+      },500 );
         }
       });
 
-      this.router.navigateByUrl(`/profile`);
  }
 
 
@@ -68,26 +73,42 @@ async gsignOut(){
  async  fbLogin (){
     const FACEBOOK_PERMISSIONS = [
       'email',
-      'user_birthday',
+      'public_profile',
       'user_photos',
       'user_gender',
     ];
 
     const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
  console.log('result',result);
- if (result.accessToken) {
-  // Login successful.
-  console.log(`Facebook access token is ${result.accessToken.token}`);
-  this.token = result.accessToken.token;
- // this.loadUserData();
+ if (result.accessToken && result.accessToken.userId) {
+  this.token = result.accessToken;
+  this.loadUserData();
+} else if (result.accessToken && !result.accessToken.userId) {
+  // Web only gets the token but not the user ID
+  // Directly call get token to retrieve it now
+  this.getCurrentToken();
+} else {
+  // Login failed
 }
   }
+   async getCurrentToken() {
+    const result = await FacebookLogin.getCurrentAccessToken();
+
+    if (result.accessToken) {
+      this.token = result.accessToken;
+      this.loadUserData();
+    } else {
+      // Not logged in.
+    }
+  }
   loadUserData(){
-   let url = 'http://graph.facebook.com/'+this.token.userId+'?fields=id,name,picture,width(720),birthday,email&access_token='+this.token.token;
+   let url = 'http://graph.facebook.com/'+this.token.userId+'?fields=id,name,picture.width(720),email&access_token='+this.token.token;
    var headers = new HttpHeaders();
    let options = { headers:headers};
    this.http.post(url, {}, options).subscribe(res=>{
       console.log('resp=',res);
+      this.user = res;
+      this.setStorageValue('userimgUrl',this.user.picture.data.url);
       //let final = JSON.parse(res.data);
       //console.log("final = ",final)
 

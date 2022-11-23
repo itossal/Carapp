@@ -56,10 +56,13 @@ export class ListoperationsPage implements OnInit  {
                     }); 
                     this.UserServicesPage.getlistOperation( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
                       
-                      var keys = Object.keys(res.listoperation);
-                      var len = keys.length;
-                  //    console.log('res.listoperation',res.listoperation[0].ID);
-                      if (res.listoperation[0].ID>0){
+           
+
+                      if (Array.isArray(res.listoperation)){
+
+                        
+
+           
                         this.listoperationall = res.listoperation;
                         this.listoperationlenght = true;
                      Object.values(this.listoperationall).filter(  
@@ -80,10 +83,8 @@ export class ListoperationsPage implements OnInit  {
                       
                       
                       
-                      }else{
-                        this.listoperationlenght = false;
-                      }
-               
+                    
+                    }
                     });
       }
   segmentButtonClicked(ev: any) {
