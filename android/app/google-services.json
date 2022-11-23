@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:12187453297:android:238c97bf615b1072ee18d0",
         "android_client_info": {
-          "package_name": "io.ionic.starter"
+          "package_name": "io.ionic.carapp"
         }
       },
       "oauth_client": [

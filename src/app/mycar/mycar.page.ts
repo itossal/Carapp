@@ -38,6 +38,7 @@ export class MycarPage implements OnInit {
 compteur;
 datemc ;
 datemajcpt;
+nbr_jour_notif_compteur;
 public dateValue: any;
   
     constructor(
@@ -86,6 +87,7 @@ public dateValue: any;
       this.name_model =  res.car.modelname;
       this.nserie = res.car.nserie;
       this.compteur = res.car.compteur;
+      this.nbr_jour_notif_compteur = res.car.nbr_jour_notif_compteur;
       this.datemc = res.car.datemc;
       this.datemajcpt = res.car.date_maj_cmpt;
 
@@ -115,36 +117,30 @@ public dateValue: any;
                     console.log('error: '+ e);
                   }); 
                   this.UserServicesPage.getlistOperationnotif( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
-                    
-                    var keys = Object.keys(res.listoperation);
-                    var len = keys.length;
-                //    console.log('res.listoperation',res.listoperation[0].ID);
-                    if (res.listoperation[0].ID>0){
+          
+                    if (Array.isArray(res.listoperation)){
                       this.listoperationall = res.listoperation;
-                      this.listoperationlenght = true;
-                   Object.values(this.listoperationall).filter(  
-                      (item) => { 
-                        console.log(item);
-                        if (item['type'] =='1'){
-                          item['typename'] = 'Entretient'
-                         }
-                         if (item['type'] =='2'){
-                          item['typename'] = 'Carburant'
-                         }
-                         if (item['type'] =='3'){
-                          item['typename'] = 'Tax'
-                         }
+              
+
+                      Object.values(this.listoperationall).filter(  
+                        (item) => { 
+                          console.log(item);
+                          if (item['type'] =='1'){
+                            item['typename'] = 'Entretient'
+                           }
+                           if (item['type'] =='2'){
+                            item['typename'] = 'Carburant'
+                           }
+                           if (item['type'] =='3'){
+                            item['typename'] = 'Tax'
+                           }
+                      } 
+                      );
                     }
-                    );
-                    
-                    
-                    
-                    
-                    }else{
-                      this.listoperationlenght = false;
-                    }
-             
+                  
                   });
+                 
+              
     }
   
   
@@ -297,12 +293,24 @@ public dateValue: any;
   }
   single_car : any={};
   newVehicule(){
+
+  
+  let data="&id_user=2&id_marque="+this.id_marque+"&id_model="+this.id_model+"&nserie="+this.single_car['nserie']+"&compteur="+this.single_car['compteur']+"&nbr_jour_notif_compteur="+this.single_car['nbr_jour_notif_compteur']+"&datemc="+this.single_car['datemc'];
+  this.UserServicesPage.addnewCar(data).subscribe(async (res) =>{
+  
+  console.log(res);
+    
+  });
+  
+  }
+
+  updateVehicule(){
     console.log("id_marque",this.id_marque);
     console.log("id_model",this.id_model);
     console.log(this.single_car);
   
-  let data="&id_user=2&id_marque="+this.id_marque+"&id_model="+this.id_model+"&nserie="+this.single_car['nserie']+"&compteur="+this.single_car['compteur']+"&datemc="+this.single_car['datemc'];
-  this.UserServicesPage.addnewCar(data).subscribe(async (res) =>{
+  let data="&id_marque="+this.id_marque+"&id_model="+this.id_model+"&nserie="+this.single_car['nserie']+"&compteur="+this.single_car['compteur']+"&nbr_jour_notif_compteur="+this.single_car['nbr_jour_notif_compteur']+"&datemc="+this.single_car['datemc'];
+  this.UserServicesPage.updateCar(this.car_id,data).subscribe(async (res) =>{
   
   console.log(res);
     
@@ -316,7 +324,7 @@ public dateValue: any;
     let valuecptr = input?.value;
 
 
-    this.UserServicesPage.changeCarcompteur(this.car_id,valuecptr).subscribe(async (res) =>{
+    this.UserServicesPage.changeCarcompteur(this.currentUserinfo.id,this.car_id,valuecptr).subscribe(async (res) =>{
   
       console.log(res);
       if(res.compteurupdated == "success"){
@@ -326,10 +334,23 @@ public dateValue: any;
       });
    
   }
+
+  inputnbrjrChanged($event:any ={}) {
+    let value = $event.target.value;
+    console.log(value);
+      if (value >= 15){  
+        this.nbr_jour_notif_compteur = 15;
+
+        this.ngOnInit();
+      }
+  }
   Addoperation(){
     this.router.navigateByUrl(`/singleoperation`);
   }
-
+  renderOperation(id){
+    console.log(id);
+        this.router.navigateByUrl(`/sigleoperationdetail/${id}`);
+      }
   Listoperation(){
     this.router.navigateByUrl(`/listoperations`);
   }

@@ -4,17 +4,14 @@ android {
     signingConfigs {
         debug {
           storeFile file('C:\\Users\\ITOS-04\\.android\\debug.keystore')
-        }
-      configkeystore {
-          keyPassword 'android'
-          keyAlias 'android'
-          storeFile file('C:\\Users\\ITOS-04\\.android\\debug.keystore')
           storePassword 'android'
+          keyAlias 'androiddebugkey'
+          keyPassword 'android'
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "io.ionic.starter"
+        applicationId "io.ionic.carapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

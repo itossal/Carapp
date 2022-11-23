@@ -38,8 +38,10 @@ litres;
 nbjournotif;
 nbkmnotif;
 operation_name;
+done;
 price;
 type;
+opstate;
   constructor(  public autocompletemarque : AutocompleteMarqueService,
     private router: Router,
     private http: HttpClient, 
@@ -76,7 +78,7 @@ type;
                 }); 
 
          
-                this.logo='https://it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marque+".png";
+                this.logo='https://autoapp.it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marque+".png";
           
                 this.UserServicesPage.getlistOperationbyId(this.currentUserinfo.id,this.car_id,this.operation_id).subscribe(async (res) =>{
                   
@@ -95,24 +97,31 @@ type;
                     this.nbjournotif = res.listoperation[0].nbjournotif  ;
                     this.nbkmnotif = res.listoperation[0].nbkmnotif ;
                     this.operation_name = res.listoperation[0].operation_name ;
+                    this.done = res.listoperation[0].done ;
+                    if ( this.done=="0"){
+                      this.opstate = false;
+                    }else{
+                      this.opstate = true;
+                    }
                     this.price = res.listoperation[0].price ;
                     this.type = res.listoperation[0].type ;
                     this.id_marque   =   this.currentCarinfo.marque;
                     this.name_marque =   this.currentCarinfo.marquename;
                     this.id_model     =   this.currentCarinfo.model;
                     this.name_model   =   this.currentCarinfo.modelname;
+               console.log(' this.opstate', this.opstate);
 
                 }); 
               
  
               }
   single_operation: any={};
-  newOperation(){
+ UpdateOperation(){
     console.log(this.single_operation);
     console.log(this.currentUserinfo);
   let  data = "operation_name="+this.single_operation.operation_name+"&type="+this.single_operation.type+"&compteur="+this.single_operation.compteur+"&price="+this.single_operation.price+"&litres="+this.single_operation.litres+"&datexp="+this.single_operation.datexp+"&nbjournotif="+this.single_operation.nbjournotif+"&kmexp="+this.single_operation.kmexp+"&nbkmnotif="+this.single_operation.nbkmnotif;
-    this.UserServicesPage.addnewOperation( this.currentUserinfo.id ,this.car_id ,data ).subscribe(async (res) =>{
-      if (res.inserted == 'success'){
+    this.UserServicesPage.updateOperation( this.currentUserinfo.id,this.operation_id ,this.car_id ,data ).subscribe(async (res) =>{
+      if (res.updated == 'success'){
   
         this.router.navigateByUrl(`/mycar/${this.car_id}`);
       
@@ -120,7 +129,30 @@ type;
     });
 
   }
+  changeOperationstate($event){
+   console.log($event.detail.checked)
 
+   if ($event.detail.checked){
+
+    this.UserServicesPage.setOperationstate( this.currentUserinfo.id,this.car_id,this.operation_id,1  ).subscribe(async (res) =>{
+      if (res.updated == 'success'){
+  
+        this.router.navigateByUrl(`/mycar/${this.car_id}`);
+      
+      }
+    });
+   }else{
+
+    this.UserServicesPage.setOperationstate( this.currentUserinfo.id,this.car_id,this.operation_id,0 ).subscribe(async (res) =>{
+      if (res.updated == 'success'){
+  
+        this.router.navigateByUrl(`/mycar/${this.car_id}`);
+      
+      }
+    });
+
+   }
+  }
   
   set date(value: any) {
    

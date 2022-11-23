@@ -10,6 +10,7 @@ import { NotifServicesService } from './services/notif-services.service';
 })
 export class AppComponent {
   currentUserinfo;
+  userimgUrl;
   constructor(private router : Router,public storage: Storage,  private platform: Platform,private NotifServicesService : NotifServicesService) {
     this.initializeApp();
   }
@@ -25,10 +26,20 @@ export class AppComponent {
     this.platform.ready().then(() => {
      
      // this.NotifServicesService.initPush();
+
+   
+
       this.getStorageValue('resuserData').then(result => {
        
         if (result) {
-          this.router.navigate(['profile']);
+       
+          this.getStorageValue('userimgUrl').then(result => {
+            console.log('userimgUrl result' , result);
+            this.userimgUrl= result;
+      }).catch(e => {
+           console.log('error: '+ e);
+         }); 
+         this.router.navigate(['profile']);
         } else {
           this.router.navigate(['login']);
         }
@@ -37,6 +48,10 @@ export class AppComponent {
      }); 
 
     });
+  }
+  logout(){
+    this.storage.clear();
+    this.router.navigate(['login']);
   }
   async setStorageValue(key: string, value: any): Promise<any> {
     try {
