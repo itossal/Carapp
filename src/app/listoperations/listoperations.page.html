@@ -5,9 +5,20 @@
 </ion-header>
 
 <ion-content>
+  <div class="carlist">
+    <div class="xc">
+      <div class="card_cat_product">
+      <img [src] ="logo" />
+      <span [innerText]="name_marque" class="carname_model"></span><span class="carname_model" > </span>  <span class="carname_model" [innerText]="name_model"></span>  
+     
+      </div>
+    </div>
+    <ion-button (click)="compteurChanged()" class="btn_compteur">RAPPORT TOTALE</ion-button>
+  </div>
+  
 
 
-  <ion-segment [scrollable]="true" >
+  <ion-segment class="block_segment" [scrollable]="true" >
     <ion-segment-button checked (click)="segmentButtonClicked($event)" value="all">
       <ion-icon name="apps-outline"></ion-icon>
       <ion-label>All</ion-label>
@@ -28,7 +39,7 @@
   </ion-segment>
 
 
-  <div *ngIf="listoperationlenght">Content to render when condition is true.
+  <div *ngIf="listoperationlenght">
   <ion-list>
    
     <ion-item *ngFor="let item of listoperationall"  class="item-profile">

@@ -30,3 +30,41 @@
     align-items: center;
     margin:2rem;
   }
+
+  .btn_addcar{
+    height: 50px;
+    overflow: hidden;
+    border-radius: 10px !important;
+    margin-top: 15px !important;
+   
+    background: #2c3447 !important;
+    --ion-color-base: #2c3447 !important;
+    --background: #2c3447 !important;
+    font-size: 21px !important;
+    font-weight: bold; 
+  }
+  .container {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    margin: auto;
+    text-align: center;
+    flex-wrap: wrap;
+
+  }
+  .card-img-top {
+    width: 100%;
+    height: 46vw;
+    object-fit: cover;
+}
+.marquename{
+  font-size: 18px !important;
+  font-weight: bold; 
+  color: #1a3677 ;
+}
+.card_cat_product{
+  padding-top: 0px !important;
+}
+.modelname{
+  font-size: 18px !important;
+}

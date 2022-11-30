@@ -1,13 +1,13 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header *ngIf="router.url != '/login'">
+  <ion-toolbar  >
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Log In</ion-title>
+    <ion-title  >Log In</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <form (ngSubmit)="submitLogin()">
+  <form (ngSubmit)="submitLogin()" class="form_itos">
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
       <ion-input type="text" [(ngModel)]="single_login.email" ngDefaultControl [ngModelOptions]="{standalone: true}" required></ion-input>
@@ -18,20 +18,30 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
-        <a [routerLink]="['/forgot-password']" class="small-text">Forgot Password?</a>
-        <a [routerLink]="['/inscription']" style="float:right" class="small-text">Inscription</a>
+        <ion-button type="submit"  expand="block">Sign In</ion-button>
+    
       </ion-col>
     </ion-row>
   </form>
-  <ion-button expand="full" color="primary" (click)="fbLogin()">
-    Login with
-    <ion-icon name="logo-facebook"></ion-icon>
-  </ion-button>
+  <ion-row class="loginbtn_fg">
+    <ion-col>
+  <a shape="round" color="primary" (click)="fbLogin()">
+  
+    <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/facebook_circle_color-512.png" width="80" height="80"/>
+  </a>
 
 
-  <ion-button expand="full" color="primary" (click)="gLogin()">
-    Signin with google
-    <ion-icon name="logo-google"></ion-icon>
-  </ion-button>
+  <a shape="round" color="primary" (click)="gLogin()">
+
+    <img src="https://cdn-icons-png.flaticon.com/512/145/145804.png" width="76" height="76"/>
+  </a>
+</ion-col>
+</ion-row>
+  <a [routerLink]="['/forgot-password']" class="login_href small-text">Forgot Password?</a>
+  <a [routerLink]="['/inscription']"  class="login_href small-text">Inscription</a>
 </ion-content>
+<ion-footer>
+  <ion-toolbar class="footer">
+    <ion-title>Created by IT Open Sprite | Hossem Solutions © 2022</ion-title>
+  </ion-toolbar>
+</ion-footer>

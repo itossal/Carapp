@@ -32,9 +32,57 @@
 }
 .btn_compteur{
     float: right;
-    height: 100%;
+    height: 100% !important;
+  
+    overflow: hidden;
+    border-radius: 0 !important;
+   margin: auto !important ;
+   
+    background: #1a3677 !important;
+    --ion-color-base: #1a3677 !important;
+    --background: #1a3677 !important;
+    font-size: 18px !important;
+    font-weight: bold;
 }
 ion-datetime {
     position: relative;
     margin-bottom: -40px;
   }
+  .btn_addcar{
+    height: 50px;
+    overflow: hidden;
+    border-radius: 10px !important;
+    margin-top: 15px !important;
+   
+    background: #2c3447 !important;
+    --ion-color-base: #2c3447 !important;
+    --background: #2c3447 !important;
+    font-size: 21px !important;
+    font-weight: bold; 
+  }
+  .btn_addcarprimec{
+    height: 50px;
+    overflow: hidden;
+    border-radius: 10px !important;
+    margin-top: 15px !important;
+   
+    background: #1a3677 !important;
+    --ion-color-base: #1a3677 !important;
+    --background: #1a3677 !important;
+    font-size: 21px !important;
+    font-weight: bold; 
+  }
+
+  .notification_btn{
+    height: 50px;
+    overflow: hidden;
+ 
+    margin-top: 15px !important;
+   
+    background: #e8020e !important;
+    --ion-color-base: #e8020e !important;
+    --background: #e8020e !important;
+    font-size: 23px !important;
+    font-weight: bold; 
+  }
+  

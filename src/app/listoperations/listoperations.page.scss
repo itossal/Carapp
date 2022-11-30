@@ -34,3 +34,58 @@
     display: table;
     margin: auto;
 }
+
+.segment-button-checked{
+    background: #1a3677 !important;
+    --ion-color-base: #1a3677 !important;
+    --background: #1a3677 !important;
+}
+.block_segment{
+     
+    background: transparent ;
+}
+.block_segment ion-segment-button ion-icon {
+ color: #fff;
+}
+.block_segment ion-segment-button ion-label {
+    color: #fff;
+    font-weight: 700;
+   }
+
+   .block_segment ion-segment-button{
+    background: #000000 ;
+    border: 1px #fff solid;
+   }
+   .btn_compteur{
+    float: right;
+  
+  
+    overflow: hidden;
+    border-radius: 0 !important;
+  
+   
+    background: #1a3677 !important;
+    --ion-color-base: #1a3677 !important;
+    --background: #1a3677 !important;
+    font-size: 18px !important;
+    font-weight: bold;
+}
+.carname_model {
+    font-size: 18px !important;
+    font-weight: bold;
+}
+.carlist {
+    display: grid;
+    text-align: left;
+    
+  
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .xc {  
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin:2rem;
+  }
