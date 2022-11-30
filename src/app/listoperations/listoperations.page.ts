@@ -23,6 +23,12 @@ export class ListoperationsPage implements OnInit  {
   car_id;
   listoperationall;
   listoperationlenght;
+  currentCarinfo;
+  logo;
+  id_marque  ;
+name_marque;
+id_model   ;
+name_model ;
   constructor(
 
     private router: Router,
@@ -46,7 +52,21 @@ export class ListoperationsPage implements OnInit  {
           }).catch(e => {
                 console.log('error: '+ e);
               }); 
-      
+              this.currentCarinfo= await this.getStorageValue('currentCarinfo').then(result => {
+     
+                return result;
+              
+                }).catch(e => {
+                      console.log('error: '+ e);
+                    }); 
+
+
+                    this.logo='https://autoapp.it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marque+".png";
+                    this.id_marque   =   this.currentCarinfo.marque;
+                    this.name_marque =   this.currentCarinfo.marquename;
+                    this.id_model     =   this.currentCarinfo.model;
+                    this.name_model   =   this.currentCarinfo.modelname;
+
               this.car_id = await this.getStorageValue('car_id').then(result => {
                 console.log("car_idlistop",result);
                 return result;

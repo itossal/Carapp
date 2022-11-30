@@ -137,7 +137,7 @@ opstate;
     this.UserServicesPage.setOperationstate( this.currentUserinfo.id,this.car_id,this.operation_id,1  ).subscribe(async (res) =>{
       if (res.updated == 'success'){
   
-        this.router.navigateByUrl(`/mycar/${this.car_id}`);
+       // this.router.navigateByUrl(`/mycar/${this.car_id}`);
       
       }
     });
@@ -146,7 +146,7 @@ opstate;
     this.UserServicesPage.setOperationstate( this.currentUserinfo.id,this.car_id,this.operation_id,0 ).subscribe(async (res) =>{
       if (res.updated == 'success'){
   
-        this.router.navigateByUrl(`/mycar/${this.car_id}`);
+      //  this.router.navigateByUrl(`/mycar/${this.car_id}`);
       
       }
     });

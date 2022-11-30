@@ -1,7 +1,7 @@
 <ion-app>
   
-  <ion-header [translucent]="true" color="customflx">
-    <ion-toolbar color="customflx" class="border_0">
+  <ion-header *ngIf="router.url != '/login'" [translucent]="true" color="customflx">
+    <ion-toolbar  color="customflx" class="border_0">
       <ion-avatar id="imgavatar"  slot="start" *ngIf="userimgUrl ; else noavatar">
         <img  (click)="logout()" [src]="userimgUrl" >
         </ion-avatar>

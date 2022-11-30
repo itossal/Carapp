@@ -170,6 +170,16 @@ export class UserServicesPage  {
                         return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=getlistoperation&user_id=${user_id}&car_id=${car_id}`,options));
                     
                       }
+                      getlistOperationalltime(user_id,car_id): Observable<any> {
+                        var headers = new HttpHeaders();
+                        headers.append('Access-Control-Allow-Origin' , '*');
+                        headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                        headers.append('Accept','application/text');
+                        headers.append('content-type','application/json');
+                         let options = { headers:headers}; 
+                          return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=getlistoperationalltime&user_id=${user_id}&car_id=${car_id}`,options));
+                      
+                        }
                       getlistOperationnotif(user_id,car_id): Observable<any> {
                         var headers = new HttpHeaders();
                         headers.append('Access-Control-Allow-Origin' , '*');

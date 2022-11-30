@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="updateVehicule()">
+  <form class="form_itos" (ngSubmit)="updateVehicule()">
     <ion-label class="label">Marque</ion-label>
     <ion-searchbar (ionInput)="inputChanged($event)" value="{{name_marque}}" name="marque" id="{{id_marque}}" placeholder="Taper marque"></ion-searchbar>
  
@@ -70,7 +70,7 @@
 
   </form>   
 
-  <ion-button color="danger" expand="full">NOTIFICATION</ion-button>
+  <ion-button class="notification_btn" expand="full">NOTIFICATION</ion-button>
   <ion-list>
    
     <ion-item *ngFor="let item of listoperationall"  class="">
@@ -93,6 +93,6 @@
     </ion-item>
  
   </ion-list>
-  <ion-button (click)="Listoperation()" expand="block">Consulter Opérations</ion-button>
-  <ion-button (click)="Addoperation()" expand="block">Ajouter une Opérations</ion-button>
+  <ion-button (click)="Listoperation()" class="btn_addcar" expand="block">Consulter Opérations</ion-button>
+  <ion-button (click)="Addoperation()" class="btn_addcarprimec" expand="block">Ajouter une Opérations</ion-button>
 </ion-content>
