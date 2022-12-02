@@ -29,6 +29,7 @@ export class ListoperationsPage implements OnInit  {
 name_marque;
 id_model   ;
 name_model ;
+whitespace;
   constructor(
 
     private router: Router,
@@ -44,6 +45,7 @@ name_model ;
     await this.storage.create();
   
       }
+      
       async ionViewDidEnter(){
         this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
     
@@ -60,9 +62,19 @@ name_model ;
                       console.log('error: '+ e);
                     }); 
 
+                    this.whitespace = " ";
+                    var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+this.currentCarinfo.marquename.toLowerCase()+".png";
 
-                    this.logo='https://autoapp.it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marque+".png";
-                    this.id_marque   =   this.currentCarinfo.marque;
+                    this.checkIfImageExists(urlimagecar, (exists) => {
+                     if (exists) {
+                       console.log('Image exists. ');
+                       this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+this.currentCarinfo.marquename.toLowerCase()+".png";
+               
+                     } else {
+                       console.error('Image does not exists.');
+                       this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+this.currentCarinfo.marquename.toLowerCase()+".jpg";
+                     }
+                   });                    this.id_marque   =   this.currentCarinfo.marque;
                     this.name_marque =   this.currentCarinfo.marquename;
                     this.id_model     =   this.currentCarinfo.model;
                     this.name_model   =   this.currentCarinfo.modelname;
@@ -106,6 +118,22 @@ name_model ;
                     
                     }
                     });
+      }
+      checkIfImageExists(url, callback) {
+        const img = new Image();
+        img.src = url;
+    
+        if (img.complete) {
+          callback(true);
+        } else {
+          img.onload = () => {
+            callback(true);
+          };
+          
+          img.onerror = () => {
+            callback(false);
+          };
+        }
       }
   segmentButtonClicked(ev: any) {
    //console.log('Segment button clicked', ev);  

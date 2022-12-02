@@ -39,6 +39,7 @@ compteur;
 datemc ;
 datemajcpt;
 nbr_jour_notif_compteur;
+class_btn;
 public dateValue: any;
   
     constructor(
@@ -90,6 +91,15 @@ public dateValue: any;
       this.nbr_jour_notif_compteur = res.car.nbr_jour_notif_compteur;
       this.datemc = res.car.datemc;
       this.datemajcpt = res.car.date_maj_cmpt;
+   
+      const now = new Date();
+    var  time = this.getDayDiff(new Date(this.datemajcpt), new Date());
+
+        if (time < 15){
+        this.class_btn = 'btn_compteur';
+        }else{
+          this.class_btn = 'btn_compteurnotif';
+        }
 
       this.setStorageValue('currentCarinfo', this.currentCarinfo);
       console.log("this.name_marque",res.car.marquename);
@@ -99,7 +109,11 @@ public dateValue: any;
     
    
     }
-  
+     getDayDiff(startDate: Date, endDate: Date): number {
+      const msInDay = 24 * 60 * 60 * 1000;
+    
+      return Math.round(Math.abs(Number(endDate) - Number(startDate)) / msInDay);
+    }
     async ionViewDidEnter(){
       this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
   
@@ -329,6 +343,7 @@ public dateValue: any;
       console.log(res);
       if(res.compteurupdated == "success"){
        this.datemajcpt =  res.date_maj_cmpt;
+       this.ngOnInit();
       }
         
       });

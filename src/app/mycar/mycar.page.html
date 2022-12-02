@@ -28,7 +28,7 @@
 </ion-item>
 <ion-label class="label">Compteur</ion-label>
 <ion-item  class="item-profile">
-<ion-input [(ngModel)]="single_car.compteur"  placeholder="Compteur" ngDefaultControl value="{{compteur}}" id="compteur" name="compteur" ></ion-input><ion-button (click)="compteurChanged()" class="btn_compteur">ENREGISTERER<br/> {{datemajcpt}}</ion-button>
+<ion-input [(ngModel)]="single_car.compteur"  placeholder="Compteur" ngDefaultControl value="{{compteur}}" id="compteur" name="compteur" ></ion-input><ion-button (click)="compteurChanged()" class="{{class_btn}}">ENREGISTERER<br/> {{datemajcpt}}</ion-button>
 </ion-item>
 
 <ion-label class="label">Nombre de jours avant notification</ion-label>
@@ -71,28 +71,34 @@
   </form>   
 
   <ion-button class="notification_btn" expand="full">NOTIFICATION</ion-button>
-  <ion-list>
+
    
-    <ion-item *ngFor="let item of listoperationall"  class="">
-     
-      
-      <div (click)="renderOperation(item.ID)" class="centre">  
-          <span class="centre">{{item.operation_name}}</span><br>
-          <span class="centre">{{item.typename}}</span>
-        </div>
-
-      <div class="">  
-        <span class="">{{item.date_crea}}</span><br>
-        <span class="">{{item.compteur}}</span>
+    <div *ngFor="let item of listoperationall" class="container item-profile">
+      <div (click)="renderOperation(item.ID)" class="row title">
+        <span class="row title1style"><b>{{item.operation_name}}</b></span>
+        <span class="row title2style"><b>{{item.typename}}</b></span>
       </div>
-    <div class="">  
-      <span class="">{{item.datexp}}</span><br>
-      <span class="">{{item.kmexp}}</span>
+      <div class="row content">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-2">
+          <span>{{item.date_crea}}</span>
+        </div>
+        <div class="col col-lg-2">
+          <span>{{item.compteur}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span style="color:red;">{{item.datexp}}</span>
+        </div>
+        <div class="col col-lg-2">
+          <span>{{item.kmexp}}</span>
+        </div>
+      </div>
     </div>
-
-    </ion-item>
+    </div>
  
-  </ion-list>
+ 
   <ion-button (click)="Listoperation()" class="btn_addcar" expand="block">Consulter Opérations</ion-button>
   <ion-button (click)="Addoperation()" class="btn_addcarprimec" expand="block">Ajouter une Opérations</ion-button>
 </ion-content>
