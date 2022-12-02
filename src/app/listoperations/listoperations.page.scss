@@ -58,12 +58,15 @@
    }
    .btn_compteur{
     float: right;
-  
+    height: 55px;
+    width: 140px;
+   
+    margin-left: auto;
   
     overflow: hidden;
-    border-radius: 0 !important;
+    border-radius: 10px ;
   
-   
+    margin-top: 50px;
     background: #1a3677 !important;
     --ion-color-base: #1a3677 !important;
     --background: #1a3677 !important;
@@ -88,4 +91,28 @@
     justify-content: center;
     align-items: center;
     margin:2rem;
+  }
+
+  .card_cat_product{
+    text-align: center;
+  }
+  .title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .content{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: solid;
+    border-width: thin;
+    border-color:#a8a8a8;
+  }
+  .title1style{
+    color:#1a3677;
+    font-size: 25px
+  }
+  .title2style{
+    color:black;
+    font-size: 20px
   }

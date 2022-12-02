@@ -89,8 +89,21 @@ export class ProfilePage implements OnInit {
     
       item['marquename'] = result.marquename;
       item['modelname'] = result.modelname;
-     item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+item['marque']+".png";
-        });
+      var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+item['marquename'].toLowerCase()+".png";
+
+     this.checkIfImageExists(urlimagecar, (exists) => {
+      if (exists) {
+        console.log('Image exists. ');
+        item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+item['marquename'].toLowerCase()+".png";
+
+      } else {
+        console.error('Image does not exists.');
+        item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+item['marquename'].toLowerCase()+".jpg";
+      }
+    });
+    
+    
+    });
         }
         );
 
@@ -140,6 +153,24 @@ export class ProfilePage implements OnInit {
         alert('Push action performed: ' + JSON.stringify(notification));
       }
     );*/
+  }
+
+
+  checkIfImageExists(url, callback) {
+    const img = new Image();
+    img.src = url;
+
+    if (img.complete) {
+      callback(true);
+    } else {
+      img.onload = () => {
+        callback(true);
+      };
+      
+      img.onerror = () => {
+        callback(false);
+      };
+    }
   }
   single_user:any = {}
       addCar(){

@@ -74,7 +74,7 @@ logo;
                 this.compteur =  this.currentCarinfo.compteur;
                 this.datemc =  this.currentCarinfo.datemc;
                 this.datemajcpt =  this.currentCarinfo.date_maj_cmpt;
-                this.logo='http://autoapp.it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marque+".png";
+                this.logo='http://autoapp.it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marquename.toLowerCase()+".jpg";
           
                
  

@@ -30,6 +30,20 @@
     color: #a9a3a3;
 
 }
+.btn_compteurnotif{
+  float: right;
+    height: 100% !important;
+  
+    overflow: hidden;
+    border-radius: 0 !important;
+   margin: auto !important ;
+   
+    background: #e8020e !important;
+    --ion-color-base: #e8020e !important;
+    --background: #e8020e !important;
+    font-size: 18px !important;
+    font-weight: bold; 
+}
 .btn_compteur{
     float: right;
     height: 100% !important;
@@ -85,4 +99,23 @@ ion-datetime {
     font-size: 23px !important;
     font-weight: bold; 
   }
-  
+  .title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .content{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: solid;
+    border-width: thin;
+    border-color:#a8a8a8;
+  }
+  .title1style{
+    color:#1a3677;
+    font-size: 25px
+  }
+  .title2style{
+    color:black;
+    font-size: 20px
+  }

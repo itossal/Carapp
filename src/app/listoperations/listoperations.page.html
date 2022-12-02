@@ -9,11 +9,11 @@
     <div class="xc">
       <div class="card_cat_product">
       <img [src] ="logo" />
-      <span [innerText]="name_marque" class="carname_model"></span><span class="carname_model" > </span>  <span class="carname_model" [innerText]="name_model"></span>  
+      <span [innerText]="name_marque" class="carname_model"></span><span class="carname_model" [innerText]="whitespace"></span>  <span class="carname_model" [innerText]="name_model"></span>  
      
       </div>
     </div>
-    <ion-button (click)="compteurChanged()" class="btn_compteur">RAPPORT TOTALE</ion-button>
+    <ion-button (click)="compteurChanged()" class="btn_compteur">RAPPORT <br/> TOTALE</ion-button>
   </div>
   
 
@@ -40,27 +40,29 @@
 
 
   <div *ngIf="listoperationlenght">
-  <ion-list>
-   
-    <ion-item *ngFor="let item of listoperationall"  class="item-profile">
-     
-      
-      <div (click)="renderOperation(item.ID)" class="centre">  
-          <span class="centre">{{item.operation_name}}</span><br>
-          <span class="centre">{{item.typename}}</span>
-        </div>
-
-      <div class="">  
-        <span class="">{{item.date_crea}}</span><br>
-        <span class="">{{item.compteur}}</span>
+    <div *ngFor="let item of listoperationall" class="container item-profile">
+      <div (click)="renderOperation(item.ID)" class="row title">
+        <span class="row title1style"><b>{{item.operation_name}}</b></span>
+        <span class="row title2style"><b>{{item.typename}}</b></span>
       </div>
-    <div class="">  
-      <span class="">{{item.datexp}}</span><br>
-      <span class="">{{item.kmexp}}</span>
+      <div class="row content">
+      <div class="row justify-content-md-center">
+        <div class="col col-lg-2">
+          <span>{{item.date_crea}}</span>
+        </div>
+        <div class="col col-lg-2">
+          <span>{{item.compteur}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span style="color:red;">{{item.datexp}}</span>
+        </div>
+        <div class="col col-lg-2">
+          <span>{{item.kmexp}}</span>
+        </div>
+      </div>
     </div>
-
-    </ion-item>
- 
-  </ion-list>
-</div>
+    </div>
+  </div>
 </ion-content>
