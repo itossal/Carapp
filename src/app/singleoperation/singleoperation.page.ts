@@ -31,6 +31,7 @@ compteur ;
 datemc ;
 datemajcpt ;
 logo;
+whitespace;
   constructor(  public autocompletemarque : AutocompleteMarqueService,
     private router: Router,
     private http: HttpClient, 
@@ -66,6 +67,8 @@ logo;
                   console.log('error: '+ e);
                 }); 
 
+            
+
                 this.id_marque =   this.currentCarinfo.marque;
                 this.name_marque =   this.currentCarinfo.marquename;
                 this.id_model =   this.currentCarinfo.model;
@@ -74,11 +77,44 @@ logo;
                 this.compteur =  this.currentCarinfo.compteur;
                 this.datemc =  this.currentCarinfo.datemc;
                 this.datemajcpt =  this.currentCarinfo.date_maj_cmpt;
-                this.logo='http://autoapp.it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marquename.toLowerCase()+".jpg";
+
+                var re = / /gi; 
+                var str = this.currentCarinfo.marquename;
+                var newstr = str.replace(re, "-");
+
+                this.whitespace = " ";
+                    var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+
+                    this.checkIfImageExists(urlimagecar, (exists) => {
+                     if (exists) {
+                       console.log('Image exists. ');
+                       this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+               
+                     } else {
+                       console.error('Image does not exists.');
+                       this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                     }
+                   }); 
           
                
  
  
+              }
+              checkIfImageExists(url, callback) {
+                const img = new Image();
+                img.src = url;
+            
+                if (img.complete) {
+                  callback(true);
+                } else {
+                  img.onload = () => {
+                    callback(true);
+                  };
+                  
+                  img.onerror = () => {
+                    callback(false);
+                  };
+                }
               }
   single_operation: any={};
   newOperation(){

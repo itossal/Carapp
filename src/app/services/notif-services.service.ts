@@ -34,10 +34,18 @@ export class NotifServicesService {
           }); 
   }
 
-  private registerPush() {
+  async registerPush() {
   
     console.log('Initializing HomePage');
  
+    this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
+    
+      return result;
+      
+      }).catch(e => {
+            console.log('error: '+ e);
+          });
+
     // Request permission to use push notifications
     // iOS will prompt user and return if they granted permission or not
     // Android will just grant without prompting
@@ -54,7 +62,7 @@ export class NotifServicesService {
     PushNotifications.addListener('registration',
       (token: Token) => {
         console.log('Push registration success, token: ' + token.value);
-
+        console.log('this.currentUserinfo.id : ' + this.currentUserinfo.id);
 
         this.UserServicesPage.setUserToken( this.currentUserinfo.id ,token.value ).subscribe(async (res) =>{
           if (res.inserted == 'success'){

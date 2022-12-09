@@ -231,7 +231,7 @@ newVehicule(){
 let data="&id_user="+ this.currentUserinfo.id +"&id_marque="+this.id_marque+"&id_model="+this.id_model+"&nserie="+this.single_car['nserie']+"&compteur="+this.single_car['compteur']+"&nbr_jour_notif_compteur="+this.single_car['nbr_jour_notif_compteur']+"&datemc="+this.single_car['datemc'];
 this.UserServicesPage.addnewCar(data).subscribe(async (res) =>{
 
-console.log(res);
+console.log(res);  
 if (res.inserted == 'success'){
   let id = res.insert_id;
   this.router.navigateByUrl(`/mycar/${id}`);

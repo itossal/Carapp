@@ -11,27 +11,27 @@
       <form class="form_itos" (ngSubmit)="profile()">
         <ion-item class="item-profile">
          
-          <ion-input type="text" placeholder="Nom et Prénom" [(ngModel)]="single_user.nom" ngDefaultControl value="{{user_name}}" name="nom"></ion-input>
+          <ion-input type="text" placeholder="Nom et Prénom" [(ngModel)]="user_name" ngDefaultControl value="{{user_name}}" name="nom"></ion-input>
         </ion-item>
         <ion-item  class="item-profile">
          
-          <ion-input [(ngModel)]="single_user.pw" placeholder="Mot de passe" ngDefaultControl  name="pw" ></ion-input>
+          <ion-input type="password" [(ngModel)]="user_pw" placeholder="Mot de passe" ngDefaultControl  name="pw" ></ion-input>
         </ion-item>
         <ion-item  class="item-profile">
         
-          <ion-input [(ngModel)]="single_user.confirmpw" placeholder="Confirmer mot de passe" ngDefaultControl  name="confirmpw" ></ion-input>
+          <ion-input type="password" [(ngModel)]="user_confirmpw" placeholder="Confirmer mot de passe" ngDefaultControl  name="confirmpw" ></ion-input>
         </ion-item>
         <ion-item  class="item-profile">
           
-          <ion-input [(ngModel)]="single_user.email" placeholder="E-mail" ngDefaultControl value="{{user_email}}" name="email"></ion-input>
+          <ion-input [(ngModel)]="user_email" placeholder="E-mail" ngDefaultControl value="{{user_email}}" name="email"></ion-input>
         </ion-item>
       <ion-item  class="item-profile">
       
-        <ion-input [(ngModel)]="single_user.phone" placeholder="Téléphone" ngDefaultControl value="{{user_phone}}"  name="phone"></ion-input>
+        <ion-input  [(ngModel)]="user_phone" placeholder="Téléphone" ngDefaultControl value="{{user_phone}}"  name="phone"></ion-input>
       </ion-item>
      
         <ion-button   class="btnprofile" type="submit" block>Enregistrer</ion-button>
-    
+      
       </form>   
       <ion-button   class="btnprofile btn_addcar" (click)="addCar()" type="submit" block>Ajouter une véhicule</ion-button>
    

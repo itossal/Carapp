@@ -20,6 +20,7 @@ providers:[Storage],
 export class LoginPage implements OnInit  {
   token :any;
   user:any;
+  tab_userinfo :any;
   constructor(
 
     private router: Router,
@@ -39,21 +40,33 @@ export class LoginPage implements OnInit  {
   const back_btn_topBar = document.getElementById("back_btn_topBar");
   back_btn_topBar.style.display = 'none';   
   const imgavatar = document.getElementById("imgavatar");
-  imgavatar.style.display = 'none';   
+  //imgavatar.style.display = 'none';   
   }
 
  async gLogin(){
       this.user = await GoogleAuth.signIn();
  console.log( this.user);
+ var name_user = "";
+ if (this.user.hasOwnProperty('name') ){
+  name_user = this.user.name;
+ }else if(this.user.hasOwnProperty('givenName')){
+  name_user = this.user.givenName;
+ }else{
+  name_user = this.user.familyName;
+ } 
+ 
+//this.tab_userinfo.email = this.user.email;
+//this.tab_userinfo.nom = name_user;
 
  this.setStorageValue('userimgUrl',this.user.imageUrl);
-      this.UserServicesPage.getuserLogindata(this.user.email).subscribe(async (res) =>{
+      this.UserServicesPage.getuserLogindata(this.user.email,name_user).subscribe(async (res) =>{
         if(res.res == 'success' ){
-          console.log("res",res)
-          setTimeout(() => {
-        this.setStorageValue('resuserData',res.resdata);
-        this.router.navigateByUrl(`/profile`);
-      },500 );
+          console.log('res.res',res.resdata)
+          this.setStorageValue('resuserData',res.resdata);
+          this.router.navigateByUrl(`/profile`);
+          setTimeout(()=>{
+            window.location.reload()
+          },500);
         }
       });
 
@@ -66,6 +79,8 @@ export class LoginPage implements OnInit  {
 }
 
 async gsignOut(){
+  
+  this.storage.clear();
    await GoogleAuth.signOut();
    this.user = null;
   console.log('signOut : ',this.user);
@@ -116,20 +131,20 @@ async gsignOut(){
   }
 
   single_login:any = {};
-  submitLogin(){
+submitLogin(){
 let email = this.single_login['email'];
 let password = this.single_login['password'];
     this.UserServicesPage.submitLogin(email,password).subscribe(async (res) =>{
       console.log(res.resdata);
       if(res.res == 'success' ){
-    
       this.setStorageValue('resuserData',res.resdata);
-   
       this.router.navigateByUrl(`/profile`);
-  
+      setTimeout(()=>{
+        window.location.reload()
+      },500);
+      
        }
        if(res.res == 'error' ){
- 
       }
       });
   }

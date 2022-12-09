@@ -26,14 +26,14 @@ export class UserServicesPage  {
       return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/users.php?action=login&email=${email}&password=${password}`,options));
   
     }
-    getuserLogindata(email): Observable<any> {
+    getuserLogindata(email,name_user): Observable<any> {
       var headers = new HttpHeaders();
       headers.append('Access-Control-Allow-Origin' , '*');
       headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
       headers.append('Accept','application/text');
       headers.append('content-type','application/json');
        let options = { headers:headers}; 
-        return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/users.php?action=logindata&email=${email}`,options));
+        return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/users.php?action=logindata&name_user=${name_user}&email=${email}`,options));
     
       }
     createAccount(email,nom,password,phone): Observable<any> {
@@ -244,6 +244,32 @@ export class UserServicesPage  {
                                  let options = { headers:headers}; 
                                   return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=updatecar&${data}&car_id=${car_id}`,options));
                               
-                                }                       
+                                }    
+                                
+                                submitContact(email,object,message): Observable<any> {
+                                  var headers = new HttpHeaders();
+                                  headers.append('Access-Control-Allow-Origin' , '*');
+                                  headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                                  headers.append('Accept','application/text');
+                                  headers.append('content-type','application/json');
+                                   let options = { headers:headers}; 
+                                   const emailencoded = encodeURI(email);
+                                   const messageencoded = encodeURI(message);
+                                   const objectencoded = encodeURI(object);
+                                    return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/users.php?action=sendmessage&email=${emailencoded}&object=${objectencoded}&message=${messageencoded}`,options));
+                                
+                                  }  
+                                  submitFpw(email): Observable<any> {
+                                    var headers = new HttpHeaders();
+                                    headers.append('Access-Control-Allow-Origin' , '*');
+                                    headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                                    headers.append('Accept','application/text');
+                                    headers.append('content-type','application/json');
+                                     let options = { headers:headers}; 
+                                     const emailencoded = encodeURI(email);
+                                  
+                                      return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/users.php?action=forgotpw&email=${emailencoded}`,options));
+                                  
+                                    }    
               
 }

@@ -9,16 +9,16 @@
 <ion-content>
   <div>
  
-    <img  src="../assets/main_logo.png"/>
+    <img class="logo"  src="../../assets/main_logo.jpg"/>
     
     </div>
   <form (ngSubmit)="submitLogin()" class="form_itos">
     <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">Login</ion-label>
       <ion-input type="text" [(ngModel)]="single_login.email" ngDefaultControl [ngModelOptions]="{standalone: true}" required></ion-input>
     </ion-item>
     <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">Mot de passe</ion-label>
       <ion-input type="password" [(ngModel)]="single_login.password" ngDefaultControl [ngModelOptions]="{standalone: true}" required></ion-input>
     </ion-item>
     <ion-row>
@@ -30,15 +30,13 @@
   </form>
   <ion-row class="loginbtn_fg">
     <ion-col>
-  <a shape="round" color="primary" (click)="fbLogin()">
-  
-    <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/facebook_circle_color-512.png" width="80" height="80"/>
-  </a>
-
-
   <a shape="round" color="primary" (click)="gLogin()">
 
     <img src="https://cdn-icons-png.flaticon.com/512/145/145804.png" width="76" height="76"/>
+  </a>
+  <a shape="round" color="primary" (click)="fbLogin()">
+  
+    <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/facebook_circle_color-512.png" width="80" height="80"/>
   </a>
 </ion-col>
 </ion-row>
@@ -47,6 +45,6 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar class="footer">
-    <ion-title>Created by IT Open Sprite | Hossem Solutions © 2022</ion-title>
+    <ion-title class="footertitle">Created by IT Open Sprite | Hossem Solutions © 2022</ion-title>
   </ion-toolbar>
 </ion-footer>

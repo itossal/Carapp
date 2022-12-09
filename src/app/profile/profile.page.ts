@@ -32,6 +32,8 @@ export class ProfilePage implements OnInit {
   user_name;
   user_email;
   user_phone;
+  user_confirmpw;
+  user_pw;
   carlist;
   userimgUrl;
   carlistcomplete : any ={}
@@ -43,34 +45,38 @@ export class ProfilePage implements OnInit {
     private toastController: ToastController,
     private NotifServicesService : NotifServicesService
      ) { }
-
+     async ngOnChanges(){
+      this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
+        console.log('resuserData result' , result);
+         return result;
+         }).catch(e => {
+               console.log('error: '+ e);
+          });
+     }
      async ngOnInit() {
       const tabs = document.getElementById("tabs_panel");
      tabs.style.display = 'flex';
   const back_btn_topBar = document.getElementById("back_btn_topBar");
   back_btn_topBar.style.display = 'block';
   const imgavatar = document.getElementById("imgavatar");
-  imgavatar.style.display = 'block';  
   
 
       await this.storage.create();
     this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
       console.log('resuserData result' , result);
- return result;
-
- }).catch(e => {
-       console.log('error: '+ e);
-     }); 
-   
-     this.userimgUrl =  this.getStorageValue('userimgUrl').then(result => {
-      console.log('userimgUrl result' , result);
-      return result;
-}).catch(e => {
+       return result;
+       }).catch(e => {
+             console.log('error: '+ e);
+        }); 
+        this.userimgUrl =  this.getStorageValue('userimgUrl').then(result => {
+        console.log('userimgUrl result' , result);
+        return result;
+      }).catch(e => {
      console.log('error: '+ e);
    }); 
 
-
-
+  
+   console.log(' this.currentUserinfo  ',  this.currentUserinfo );
      this.user_name = this.currentUserinfo.nom;
      this.user_email = this.currentUserinfo.email;
      this.user_phone = this.currentUserinfo.phone;
@@ -79,6 +85,9 @@ export class ProfilePage implements OnInit {
        
 
      this.UserServicesPage.getUserCars(this.currentUserinfo.id).subscribe(async (res) =>{
+
+      if (res.carlist[0] !=null  ){
+
     this.carlist = res.carlist;
     console.log(this.carlist);
       
@@ -89,16 +98,22 @@ export class ProfilePage implements OnInit {
     
       item['marquename'] = result.marquename;
       item['modelname'] = result.modelname;
-      var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+item['marquename'].toLowerCase()+".png";
+
+      var re = / /gi; 
+      var str = item['marquename'];
+      var newstr = str.replace(re, "-");
+
+
+      var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
 
      this.checkIfImageExists(urlimagecar, (exists) => {
       if (exists) {
         console.log('Image exists. ');
-        item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+item['marquename'].toLowerCase()+".png";
+        item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
 
       } else {
         console.error('Image does not exists.');
-        item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+item['marquename'].toLowerCase()+".jpg";
+        item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
       }
     });
     
@@ -107,54 +122,78 @@ export class ProfilePage implements OnInit {
         }
         );
 
-   
+      }
        
     });
     this.NotifServicesService.initPush();
-/*
-    console.log('Initializing HomePage');
 
-    // Request permission to use push notifications
-    // iOS will prompt user and return if they granted permission or not
-    // Android will just grant without prompting
-    PushNotifications.requestPermissions().then(result => {
-      if (result.receive === 'granted') {
-        // Register with Apple / Google to receive push via APNS/FCM
-        PushNotifications.register();
-      } else {
-        // Show some error
-      }
-    });
-
-    // On success, we should be able to receive notifications
-    PushNotifications.addListener('registration',
-      (token: Token) => {
-        alert('Push registration success, token: ' + token.value);
-      }
-    );
-
-    // Some issue with our setup and push will not work
-    PushNotifications.addListener('registrationError',
-      (error: any) => {
-        alert('Error on registration: ' + JSON.stringify(error));
-      }
-    );
-
-    // Show us the notification payload if the app is open on our device
-    PushNotifications.addListener('pushNotificationReceived',
-      (notification: PushNotificationSchema) => {
-        alert('Push received: ' + JSON.stringify(notification));
-      }
-    );
-
-    // Method called when tapping on a notification
-    PushNotifications.addListener('pushNotificationActionPerformed',
-      (notification: ActionPerformed) => {
-        alert('Push action performed: ' + JSON.stringify(notification));
-      }
-    );*/
   }
+async ionViewDidEnter(){
+  await this.storage.create();
+  this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
+    console.log('resuserData result' , result);
+     return result;
+     }).catch(e => {
+           console.log('error: '+ e);
+      }); 
+      this.userimgUrl =  this.getStorageValue('userimgUrl').then(result => {
+      console.log('userimgUrl result' , result);
+      return result;
+    }).catch(e => {
+   console.log('error: '+ e);
+ }); 
 
+
+ console.log(' this.currentUserinfo  ',  this.currentUserinfo );
+   this.user_name = this.currentUserinfo.nom;
+   this.user_email = this.currentUserinfo.email;
+   this.user_phone = this.currentUserinfo.phone;
+
+
+     
+
+   this.UserServicesPage.getUserCars(this.currentUserinfo.id).subscribe(async (res) =>{
+
+    if (res.carlist[0] !=null  ){
+
+  this.carlist = res.carlist;
+  console.log(this.carlist);
+    
+        this.carlistcomplete =  Object.values(this.carlist).filter(  
+        (item) => { 
+          console.log(item);
+    this.UserServicesPage.getMarqueModelnames(item['marque'],item['model']).subscribe(async (result) =>{
+  
+    item['marquename'] = result.marquename;
+    item['modelname'] = result.modelname;
+
+    var re = / /gi; 
+    var str = item['marquename'];
+    var newstr = str.replace(re, "-");
+
+
+    var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+
+   this.checkIfImageExists(urlimagecar, (exists) => {
+    if (exists) {
+      console.log('Image exists. ');
+      item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+
+    } else {
+      console.error('Image does not exists.');
+      item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+    }
+  });
+  
+  
+  });
+      }
+      );
+
+    }
+     
+  });
+}
 
   checkIfImageExists(url, callback) {
     const img = new Image();
@@ -172,14 +211,10 @@ export class ProfilePage implements OnInit {
       };
     }
   }
-  single_user:any = {}
+  single_user:any = {};
       addCar(){
         this.router.navigateByUrl(`/vehicule`);
       }
-
-
-
-
       renderCar(id){
         this.router.navigateByUrl(`/mycar/${id}`);
       }
@@ -189,7 +224,15 @@ export class ProfilePage implements OnInit {
           duration: 1500,
           position: position
         });
-      
+        await toast.present();
+      }
+
+      async presentToastPassOrSomething(position: 'top' | 'middle' | 'bottom') {
+        const toast = await this.toastController.create({
+          message: 'Saisir votre mot de passe est la confirmation SVP!',
+          duration: 1500,
+          position: position
+        });
         await toast.present();
       }
       async presentToasterrorpw(position: 'top' | 'middle' | 'bottom') {
@@ -198,25 +241,35 @@ export class ProfilePage implements OnInit {
           duration: 1500,
           position: position
         });
-      
         await toast.present();
       }
       profile(){
-
-
-
-        let nom = this.single_user['nom'];
-        let mail = this.single_user['email'];
-        let password = this.single_user['pw'];
-        let confirm_password = this.single_user['confirmpw'];
-        let phone = this.single_user['phone'];
-        console.log(password);
+        let nom = this.user_name;
+        let mail = this.user_email;
+        let password = this.user_confirmpw;
+        let confirm_password = this.user_pw;
+        let phone = this.user_phone;
+        console.log(nom);
         console.log(confirm_password);
+        if(password == undefined){
+          this.presentToastPassOrSomething('middle');
+          return;
+        }
         if (confirm_password == password){
           this.UserServicesPage.updateAccount( this.currentUserinfo.id,mail,nom,password,phone).subscribe(res =>{
-   
+            console.log(res);
             if(!res.succes){
+              console.log(res);
               this.presentToast('middle');
+
+              this.UserServicesPage.getuserLogindata(mail,nom).subscribe(async (res) =>{
+                if(res.res == 'success' ){
+               
+                  this.setStorageValue('resuserData',res.resdata);
+              this.ngOnChanges();
+                }
+              });
+        
             }
            
           })

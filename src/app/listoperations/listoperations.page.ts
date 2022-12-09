@@ -26,10 +26,10 @@ export class ListoperationsPage implements OnInit  {
   currentCarinfo;
   logo;
   id_marque  ;
-name_marque;
-id_model   ;
-name_model ;
-whitespace;
+  name_marque;
+  id_model   ;
+  name_model ;
+  whitespace;
   constructor(
 
     private router: Router,
@@ -61,23 +61,29 @@ whitespace;
                 }).catch(e => {
                       console.log('error: '+ e);
                     }); 
-
+                    var re = / /gi; 
+                    var str = this.currentCarinfo.marquename;
+                    var newstr = str.replace(re, "-");
+                    
                     this.whitespace = " ";
-                    var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+this.currentCarinfo.marquename.toLowerCase()+".png";
+                    var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
 
                     this.checkIfImageExists(urlimagecar, (exists) => {
                      if (exists) {
                        console.log('Image exists. ');
-                       this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+this.currentCarinfo.marquename.toLowerCase()+".png";
+                       this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
                
                      } else {
                        console.error('Image does not exists.');
-                       this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+this.currentCarinfo.marquename.toLowerCase()+".jpg";
+                       this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
                      }
-                   });                    this.id_marque   =   this.currentCarinfo.marque;
+                   });                    
+                    this.id_marque   =   this.currentCarinfo.marque;
                     this.name_marque =   this.currentCarinfo.marquename;
-                    this.id_model     =   this.currentCarinfo.model;
-                    this.name_model   =   this.currentCarinfo.modelname;
+                    this.id_model    =   this.currentCarinfo.model;
+                    this.name_model  =   this.currentCarinfo.modelname;
+
+                    
 
               this.car_id = await this.getStorageValue('car_id').then(result => {
                 console.log("car_idlistop",result);

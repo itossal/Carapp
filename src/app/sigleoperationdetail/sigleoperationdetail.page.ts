@@ -42,6 +42,9 @@ done;
 price;
 type;
 opstate;
+whitespace;
+nserie;
+datemajcpt;
   constructor(  public autocompletemarque : AutocompleteMarqueService,
     private router: Router,
     private http: HttpClient, 
@@ -49,86 +52,98 @@ opstate;
     private UserServicesPage : UserServicesPage,
     public storage: Storage ) { }
     operation_id = this.route.snapshot.paramMap.get('id');
-  async ngOnInit() {
-    await this.storage.create();
-   
-    let now = new Date();
-    this.dateValue =   now.toLocaleDateString();
-    this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
-    
-      return result;
-      
-      }).catch(e => {
-            console.log('error: '+ e);
-          }); 
-    this.car_id = await this.getStorageValue('car_id').then(result => {
-      console.log(result);
-      return result;
-    
-      }).catch(e => {
-            console.log('error: '+ e);
-          }); 
-
-          this.currentCarinfo= await this.getStorageValue('currentCarinfo').then(result => {
-     
-            return result;
-          
-            }).catch(e => {
-                  console.log('error: '+ e);
-                }); 
-
-         
-                this.logo='https://autoapp.it-open-sprite.com/carapp/logos/'+ this.currentCarinfo.marque+".png";
-          
-                this.UserServicesPage.getlistOperationbyId(this.currentUserinfo.id,this.car_id,this.operation_id).subscribe(async (res) =>{
-                  
-                    this.operationdetail =res.listoperation[0];
-                    console.log(' this.operationdetail', this.operationdetail);
-              
-
-
-                    this.datexp = res.listoperation[0].datexp  ;
-                    this.compteur  = res.listoperation[0].compteur ;
-                 
-             
-                    this.date_crea = res.listoperation[0].date_crea ;
-                    this.kmexp = res.listoperation[0].kmexp ;
-                    this.litres = res.listoperation[0].litres ;
-                    this.nbjournotif = res.listoperation[0].nbjournotif  ;
-                    this.nbkmnotif = res.listoperation[0].nbkmnotif ;
-                    this.operation_name = res.listoperation[0].operation_name ;
-                    this.done = res.listoperation[0].done ;
-                    if ( this.done=="0"){
-                      this.opstate = false;
-                    }else{
-                      this.opstate = true;
-                    }
-                    this.price = res.listoperation[0].price ;
-                    this.type = res.listoperation[0].type ;
-                    this.id_marque   =   this.currentCarinfo.marque;
-                    this.name_marque =   this.currentCarinfo.marquename;
-                    this.id_model     =   this.currentCarinfo.model;
-                    this.name_model   =   this.currentCarinfo.modelname;
-               console.log(' this.opstate', this.opstate);
-
-                }); 
-              
- 
-              }
-  single_operation: any={};
- UpdateOperation(){
-    console.log(this.single_operation);
-    console.log(this.currentUserinfo);
-  let  data = "operation_name="+this.single_operation.operation_name+"&type="+this.single_operation.type+"&compteur="+this.single_operation.compteur+"&price="+this.single_operation.price+"&litres="+this.single_operation.litres+"&datexp="+this.single_operation.datexp+"&nbjournotif="+this.single_operation.nbjournotif+"&kmexp="+this.single_operation.kmexp+"&nbkmnotif="+this.single_operation.nbkmnotif;
-    this.UserServicesPage.updateOperation( this.currentUserinfo.id,this.operation_id ,this.car_id ,data ).subscribe(async (res) =>{
-      if (res.updated == 'success'){
+    async ngOnInit() {
   
-        this.router.navigateByUrl(`/mycar/${this.car_id}`);
+      await this.storage.create();
+      let now = new Date();
+      this.dateValue =   now.toLocaleDateString();
+      this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
       
-      }
-    });
-
-  }
+        return result;
+        
+        }).catch(e => {
+              console.log('error: '+ e);
+            }); 
+      this.car_id = await this.getStorageValue('car_id').then(result => {
+        console.log(result);
+        return result;
+      
+        }).catch(e => {
+              console.log('error: '+ e);
+            }); 
+  
+            this.currentCarinfo= await this.getStorageValue('currentCarinfo').then(result => {
+       
+              return result;
+            
+              }).catch(e => {
+                    console.log('error: '+ e);
+                  }); 
+  
+              
+  
+                  this.id_marque =   this.currentCarinfo.marque;
+                  this.name_marque =   this.currentCarinfo.marquename;
+                  this.id_model =   this.currentCarinfo.model;
+                  this.name_model =   this.currentCarinfo.modelname;
+                  this.nserie =  this.currentCarinfo.nserie;
+                  this.compteur =  this.currentCarinfo.compteur;
+                  this.datemc =  this.currentCarinfo.datemc;
+                  this.datemajcpt =  this.currentCarinfo.date_maj_cmpt;
+  
+                  var re = / /gi; 
+                  var str = this.currentCarinfo.marquename;
+                  var newstr = str.replace(re, "-");
+  
+                  this.whitespace = " ";
+                      var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+  
+                      this.checkIfImageExists(urlimagecar, (exists) => {
+                       if (exists) {
+                         console.log('Image exists. ');
+                         this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+                 
+                       } else {
+                         console.error('Image does not exists.');
+                         this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                       }
+                     }); 
+            
+                 
+   
+   
+                }
+                checkIfImageExists(url, callback) {
+                  const img = new Image();
+                  img.src = url;
+              
+                  if (img.complete) {
+                    callback(true);
+                  } else {
+                    img.onload = () => {
+                      callback(true);
+                    };
+                    
+                    img.onerror = () => {
+                      callback(false);
+                    };
+                  }
+                }
+    single_operation: any={};
+    newOperation(){
+      console.log(this.single_operation);
+      console.log(this.currentUserinfo);
+    let  data = "operation_name="+this.single_operation.operation_name+"&type="+this.single_operation.type+"&compteur="+this.single_operation.compteur+"&price="+this.single_operation.price+"&litres="+this.single_operation.litres+"&datexp="+this.single_operation.datexp+"&nbjournotif="+this.single_operation.nbjournotif+"&kmexp="+this.single_operation.kmexp+"&nbkmnotif="+this.single_operation.nbkmnotif;
+      this.UserServicesPage.addnewOperation( this.currentUserinfo.id ,this.car_id ,data ).subscribe(async (res) =>{
+        if (res.inserted == 'success'){
+    
+          this.router.navigateByUrl(`/mycar/${this.car_id}`);
+        
+        }
+      });
+  
+    }
+  
   changeOperationstate($event){
    console.log($event.detail.checked)
 

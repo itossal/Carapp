@@ -3,8 +3,6 @@
     width: 90%;
     display: table;
     margin: 0 auto;
-    border: solid 1px #a9a3a3;
-    border-radius: 20px;
     margin-top: 15px;
     font-size: 16px;
 }
@@ -73,6 +71,9 @@ ion-datetime {
     --background: #2c3447 !important;
     font-size: 21px !important;
     font-weight: bold; 
+    width: 90%;
+    display: table;
+    margin: 0 auto;
   }
   .btn_addcarprimec{
     height: 50px;
@@ -85,19 +86,28 @@ ion-datetime {
     --background: #1a3677 !important;
     font-size: 21px !important;
     font-weight: bold; 
+    width: 90%;
+    display: table;
+    margin: 0 auto;
   }
 
   .notification_btn{
+    width: 100%;
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 9px;
+    display: table;
+    color: #fff;
     height: 50px;
-    overflow: hidden;
- 
+  
     margin-top: 15px !important;
-   
     background: #e8020e !important;
     --ion-color-base: #e8020e !important;
     --background: #e8020e !important;
     font-size: 23px !important;
-    font-weight: bold; 
+    font-weight: bold;
+  
   }
   .title{
     display: flex;
@@ -118,4 +128,10 @@ ion-datetime {
   .title2style{
     color:black;
     font-size: 20px
+  }
+  .mycar_mark_search{
+    --border-radius: 10px;
+    width: 92%;
+    margin: 0 auto;
+    --background: rgba(0, 0, 0, 0.0509803922);
   }

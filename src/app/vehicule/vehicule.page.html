@@ -7,7 +7,7 @@
 <ion-content>
   <form class="form_itos" (ngSubmit)="newVehicule()">
 
-    <ion-searchbar (ionInput)="inputChanged($event)" value="{{name_marque}}" name="marque" id="{{id_marque}}" placeholder="Taper marque"></ion-searchbar>
+    <ion-searchbar    class="mycar_mark_search" (ionInput)="inputChanged($event)" value="{{name_marque}}" name="marque" id="{{id_marque}}" placeholder="Taper marque"></ion-searchbar>
  
     <ion-list  >
 <ion-item *ngFor="let item of selectedmark" (click)="selected(item)">
@@ -15,7 +15,7 @@
 </ion-item>
 </ion-list>
 
-<ion-searchbar (ionInput)="inputmodelChanged($event)" value="{{name_model}}" id="{{id_model}}" name="model"  placeholder="Taper modele"></ion-searchbar>
+<ion-searchbar    class="mycar_mark_search" (ionInput)="inputmodelChanged($event)" value="{{name_model}}" id="{{id_model}}" name="model"  placeholder="Taper modele"></ion-searchbar>
 
 <ion-list  >
 <ion-item *ngFor="let item of selectedmodel" (click)="fselectedmodel(item)">

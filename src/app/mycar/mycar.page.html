@@ -6,8 +6,10 @@
 
 <ion-content>
   <form class="form_itos" (ngSubmit)="updateVehicule()">
+    
     <ion-label class="label">Marque</ion-label>
-    <ion-searchbar (ionInput)="inputChanged($event)" value="{{name_marque}}" name="marque" id="{{id_marque}}" placeholder="Taper marque"></ion-searchbar>
+   
+    <ion-searchbar    class="mycar_mark_search" (ionInput)="inputChanged($event)" value="{{name_marque}}" name="marque" id="{{id_marque}}" placeholder="Taper marque"></ion-searchbar>
  
     <ion-list  >
 <ion-item *ngFor="let item of selectedmark" (click)="selected(item)">
@@ -15,7 +17,7 @@
 </ion-item>
 </ion-list>
 <ion-label class="label">Modéle</ion-label>
-<ion-searchbar (ionInput)="inputmodelChanged($event)" value="{{name_model}}" id="{{id_model}}" name="model"  placeholder="Taper modele"></ion-searchbar>
+<ion-searchbar  class="mycar_mark_search" (ionInput)="inputmodelChanged($event)" value="{{name_model}}" id="{{id_model}}" name="model"  placeholder="Taper modele"></ion-searchbar>
 
 <ion-list  >
 <ion-item *ngFor="let item of selectedmodel" (click)="fselectedmodel(item)">
@@ -27,11 +29,21 @@
 <ion-input [(ngModel)]="single_car.nserie"  placeholder="N de serie" ngDefaultControl value="{{nserie}}" name="nserie" ></ion-input>
 </ion-item>
 <ion-label class="label">Compteur</ion-label>
-<ion-item  class="item-profile">
-<ion-input [(ngModel)]="single_car.compteur"  placeholder="Compteur" ngDefaultControl value="{{compteur}}" id="compteur" name="compteur" ></ion-input><ion-button (click)="compteurChanged()" class="{{class_btn}}">ENREGISTERER<br/> {{datemajcpt}}</ion-button>
+<ion-item  class="item-profile" style="    width: 56%;
+float: left;
+margin-left: 19px;
+display: inline;">
+<ion-input [(ngModel)]="single_car.compteur"  placeholder="Compteur" ngDefaultControl value="{{compteur}}" id="compteur" name="compteur" ></ion-input>
 </ion-item>
+<ion-button (click)="compteurChanged()" style="    height: 50px!important;
+margin-top: -50px !important;
+margin-right: 22px !important;
+border-radius: 10px !important;
+font-size: 18px !important;
+font-weight: bold;"  class="{{class_btn}}">ENREGISTERER<br/> {{datemajcpt}}</ion-button>
 
-<ion-label class="label">Nombre de jours avant notification</ion-label>
+
+<ion-label style="    padding-top: 15px;" class="label">Nombre de jours avant notification</ion-label>
 <ion-item  class="item-profile">
 <ion-input [(ngModel)]="single_car.nbr_jour_notif_compteur" (ionInput)="inputnbrjrChanged($event)"  placeholder="Nombre de jours ne dépasse pas 15 jours" ngDefaultControl  value="{{nbr_jour_notif_compteur}}" id="nbr_jour_notif_compteur" name="nbr_jour_notif_compteur"   ></ion-input>
 </ion-item>
@@ -70,7 +82,7 @@
 
   </form>   
 
-  <ion-button class="notification_btn" expand="full">NOTIFICATION</ion-button>
+  <ion-label class="notification_btn" expand="full">NOTIFICATION</ion-label>
 
    
     <div *ngFor="let item of listoperationall" class="container item-profile">

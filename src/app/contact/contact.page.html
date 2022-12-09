@@ -1,9 +1,48 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>contact</ion-title>
+    <ion-title>Contact</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="titles_placment">
+  <h3>Nous joindre </h3>
+  <a  class="firstaplace" color="primary" href="#">
 
+    <img src="https://cdn-icons-png.flaticon.com/512/145/145804.png" width="46" height="46"/>
+  </a>
+  <a  color="primary" href="https://www.facebook.com/">
+  
+    <img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/facebook_circle_color-512.png" width="50" height="50"/>
+  </a>
+  <a  color="primary" href="https://www.youtube.com/">
+  
+    <img src="assets/icon/icons8-youtube-48.png" width="50" height="50"/>
+  </a>
+  <h3>Ou bien nous contacter </h3>
+</div>
+  <form (ngSubmit)="submitcontact()" class="form_itos">
+    <ion-item lines="full">
+     
+      <ion-input type="text" placeholder="Votre email" [(ngModel)]="contact_us.email" ngDefaultControl [ngModelOptions]="{standalone: true}" required></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+ 
+      <ion-input type="text" placeholder="Objet" [(ngModel)]="contact_us.object" ngDefaultControl [ngModelOptions]="{standalone: true}" required></ion-input>
+    </ion-item>
+    <ion-item class="itemtextarea" lines="full">
+    
+      <ion-textarea
+   
+      [(ngModel)]="contact_us.message" ngDefaultControl [ngModelOptions]="{standalone: true}" required
+      placeholder="Message"
+      [clearOnEdit]="true"
+    ></ion-textarea>    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit"  expand="block">Envoyer</ion-button>
+    
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

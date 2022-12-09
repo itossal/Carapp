@@ -5,21 +5,19 @@
 </ion-header>
 
 <ion-content>
-
-           
-               
-      <form (ngSubmit)="newprofile()">
+       
+      <form (ngSubmit)="newprofile()" class="form_itos">
         <ion-item class="item-profile">
          
           <ion-input type="text" placeholder="Nom et Prénom" [(ngModel)]="single_user.nom" ngDefaultControl  name="nom"></ion-input>
         </ion-item>
         <ion-item  class="item-profile">
          
-          <ion-input [(ngModel)]="single_user.pw" placeholder="Mot de passe" ngDefaultControl  name="pw" ></ion-input>
+          <ion-input type="password" [(ngModel)]="single_user.pw" placeholder="Mot de passe" ngDefaultControl  name="pw" ></ion-input>
         </ion-item>
         <ion-item  class="item-profile">
         
-          <ion-input [(ngModel)]="single_user.confirmpw" placeholder="Confirmer mot de passe" ngDefaultControl  name="confirmpw" ></ion-input>
+          <ion-input type="password" [(ngModel)]="single_user.confirmpw" placeholder="Confirmer mot de passe" ngDefaultControl  name="confirmpw" ></ion-input>
         </ion-item>
         <ion-item  class="item-profile">
           
