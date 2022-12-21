@@ -9,7 +9,7 @@
     <div class="xc">
       <div class="card_cat_product">
       <img [src] ="logo" />
-      <span [innerText]="name_marque"></span>  <span [innerText]="name_model"></span>  
+      <span class="carname_model" [innerText]="name_marque"></span> <span class="carname_model" [innerText]="whitespace"></span> <span class="carname_model" [innerText]="name_model"></span>  
      
       </div>
     </div>
@@ -28,9 +28,9 @@
   </ion-item>
 <ion-list>
   <ion-item  class="item-profile">
-    <ion-select  [ngModelOptions]="{standalone: true}" [(ngModel)]="single_operation.type" name="type" ngDefaultControl  placeholder="Type">
-      <ion-select-option value="1">Entretient</ion-select-option>
-      <ion-select-option value="2">Carburant</ion-select-option>
+    <ion-select  [ngModelOptions]="{standalone: true}" [(ngModel)]="single_operation.type" value="{{type}}" name="type" ngDefaultControl  placeholder="Type">
+      <ion-select-option  value="1">Entretient</ion-select-option>
+      <ion-select-option  value="2">Carburant</ion-select-option>
       <ion-select-option value="3">Payment de tax</ion-select-option>
     </ion-select>
   </ion-item>
@@ -45,14 +45,24 @@
         <ion-item  class="item-profile">
           <ion-input [(ngModel)]="single_operation.litres" value="{{litres}}"  placeholder="litres" ngDefaultControl  id="litres" name="litres" ></ion-input>
           </ion-item>
-       
-          <ion-item class="item-profile">
-            <ion-datetime        name="datexp"     [(ngModel)]="single_operation.datexp" 
-             placeholder="Date d`expiration" displayFormat="DD MM YYYY" max="2025-10-31" value="{{datexp| date: 'dd-MMM-yyyy' }}" pickerFormat="DD MM YYYY">
-            </ion-datetime>
+          <ion-label class="label">Date d'expiration</ion-label>
+          <ion-item class="item-profile" (click)="showPicker = !showPicker">
+            <ion-label>Date d'expiration</ion-label>
+         
+          <ion-input   
+         
+            value="{{datexpformatted}}"
+              id="date"
+              class="ion-text-end"
+              readonly="true"
+            ></ion-input>     
+          </ion-item>
+          <ion-datetime *ngIf="showPicker"    [(ngModel)]="single_operation.datexp"  name="datexp" size="cover" 
+         min="2022-10-10"  max="2025-10-31"  >
+         </ion-datetime>
            
             
-          </ion-item>
+        
           <ion-item  class="item-profile">
             <ion-input [(ngModel)]="single_operation.nbjournotif"  value="{{nbjournotif}}"  placeholder="Nombre de jours avant la notification" ngDefaultControl  id="nbjournotif" name="nbjournotif" ></ion-input>
             </ion-item>

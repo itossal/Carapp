@@ -9,6 +9,10 @@ ion-avatar  {
         font-size: 40px;
         width:2em ;  
         color :black;
+  
+            display: inline-block; 
+            transform: rotate(180deg);
+        
     }
     .back_btn_topBar{
         font-size: 25px;

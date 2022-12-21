@@ -30,6 +30,10 @@
     color: #a9a3a3;
 
 }
+.carname_model {
+    font-size: 18px !important;
+    font-weight: bold;
+}
 .btn_compteur{
     float: right;
     height: 100%;
@@ -54,3 +58,14 @@
     position: relative;
     margin-bottom: -40px;
   }
+  .label{
+    width: 90%;
+    display: table;
+    margin: 0 auto;
+    /* border: solid 1px #a9a3a3; */
+    /* border-radius: 20px; */
+    margin-top: 15px;
+    font-size: 16px;
+    color: #a9a3a3;
+
+}

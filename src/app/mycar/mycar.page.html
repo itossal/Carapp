@@ -50,15 +50,16 @@ font-weight: bold;"  class="{{class_btn}}">ENREGISTERER<br/> {{datemajcpt}}</ion
 <ion-label class="label">Date de mise en circulation</ion-label>
 <ion-item class="item-profile">
   <ion-label>Date</ion-label>
-  <ion-input
+  <ion-input 
     value="{{datemc}}"
     id="date"
     class="ion-text-end"
     readonly="true"
   ></ion-input>
-  <ion-popover trigger="date" size="cover">
+  <ion-popover trigger="date" class="popup_date" size="cover" >
     <ng-template>
       <ion-datetime
+      size="cover"
       [(ngModel)]="single_car.datemc" 
        [showDefaultButtons]="true"
         #popoverDatetime

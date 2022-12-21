@@ -135,3 +135,8 @@ ion-datetime {
     margin: 0 auto;
     --background: rgba(0, 0, 0, 0.0509803922);
   }
+  .popup_date{
+    --width: 80% !important;
+
+    margin-left: -42px !important;
+  }

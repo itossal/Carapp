@@ -2,14 +2,12 @@ import { Component, OnInit, Injectable ,NgModule  } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Router,ActivatedRoute, NavigationExtras } from '@angular/router';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormGroup, FormControl} from '@angular/forms';
-//import {Plugins} from '@capacitor/core';
+
 import {UserServicesPage} from 'src/app/dataServices/user-services/user-services.page';
-import {StorageServicesPage} from 'src/app/dataServices/storage-services/storage-services.page';
-import { AutoCompleteModule } from 'ionic4-auto-complete';
-import {map} from 'rxjs/operators';
+
 import { AutocompleteMarqueService } from '../services/autocomplete.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-singleoperation',
@@ -18,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class SingleoperationPage implements OnInit {
   public dateValue: any;
+  todolistoperation;
+  listoperationalleveything;
   currentUserinfo;
   car_id;
   datexp;
@@ -37,7 +37,20 @@ whitespace;
     private http: HttpClient, 
     private route : ActivatedRoute,
     private UserServicesPage : UserServicesPage,
+    private toastController: ToastController,
     public storage: Storage ) { }
+
+
+
+    async presentToast(position: 'top' | 'middle' | 'bottom') {
+      const toast = await this.toastController.create({
+        message: 'Vous ne pouvez pas ajouter + que 5 opération en mode hors connexion !!',
+        duration: 1500,
+        position: position
+      });
+      await toast.present();
+    }
+
 
   async ngOnInit() {
   
@@ -52,7 +65,7 @@ whitespace;
             console.log('error: '+ e);
           }); 
     this.car_id = await this.getStorageValue('car_id').then(result => {
-      console.log(result);
+      console.log('  this.car_id ',result);
       return result;
     
       }).catch(e => {
@@ -83,16 +96,16 @@ whitespace;
                 var newstr = str.replace(re, "-");
 
                 this.whitespace = " ";
-                    var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+                    var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
 
                     this.checkIfImageExists(urlimagecar, (exists) => {
                      if (exists) {
                        console.log('Image exists. ');
-                       this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+                       this.logo= '../../assets/logos/'+newstr.toLowerCase()+".png";
                
                      } else {
                        console.error('Image does not exists.');
-                       this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                       this.logo = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
                      }
                    }); 
           
@@ -116,11 +129,145 @@ whitespace;
                   };
                 }
               }
+              public onlineOffline: boolean = navigator.onLine;
   single_operation: any={};
-  newOperation(){
+ async newOperation(){
     console.log(this.single_operation);
     console.log(this.currentUserinfo);
   let  data = "operation_name="+this.single_operation.operation_name+"&type="+this.single_operation.type+"&compteur="+this.single_operation.compteur+"&price="+this.single_operation.price+"&litres="+this.single_operation.litres+"&datexp="+this.single_operation.datexp+"&nbjournotif="+this.single_operation.nbjournotif+"&kmexp="+this.single_operation.kmexp+"&nbkmnotif="+this.single_operation.nbkmnotif;
+  if (!this.onlineOffline){
+    var todoarray = [];
+    var tabop = [];
+    var tab = [];
+    var biggertab = [];
+var storage_exist = 0;
+    this.todolistoperation =  await  this.getStorageValue('todolistoperation').then(result => {
+    
+    // console.log(result);
+      return result;
+  
+        }).catch(e => {
+              console.log('error: '+ e);
+         });
+   
+         if (this.todolistoperation == null && this.todolistoperation == undefined){
+          setTimeout(()=>{
+       
+
+            tab['car_id'] = this.car_id;
+            tab['user_id'] = this.currentUserinfo.id;
+            tab['data'] = data;
+            todoarray.push(tab);
+          
+  
+          },500);
+  
+    
+          setTimeout(()=>{
+      this.setStorageValue('todolistoperation', todoarray);
+          },1500);
+         }else{
+         // console.log(this.todolistoperation);  
+         var tab_length = 0;
+         Object.values(this.todolistoperation).filter(  
+          (item) => { 
+            tab_length ++;
+          todoarray.push(item);
+        //  biggertab.push(item);  
+        });
+console.log('tab_length' ,  tab_length);
+        if (tab_length >= 4){
+
+          this.presentToast('middle');
+            this.router.navigateByUrl(`/mycar/${this.car_id}`);
+        }else{
+
+          setTimeout(()=>{
+            tab['car_id'] = this.car_id;
+            tab['user_id'] = this.currentUserinfo.id;
+            tab['data'] = data;
+            todoarray.push(tab);
+          //  biggertab.push(tab);  
+  
+          },500);
+  
+    
+          setTimeout(()=>{
+         
+      this.setStorageValue('todolistoperation', todoarray);
+          },1500);
+        }
+
+    
+
+
+
+
+
+      }
+
+
+      console.log(this.todolistoperation);
+       
+        
+
+   this.listoperationalleveything = await    this.getStorageValue('listoperationalleveything').then(result => {
+      console.log('listoperationalleveything',result)
+      return result;
+  
+        }).catch(e => {
+              console.log('error: '+ e);
+         });
+
+         const now = new Date();
+         function formatDate(date) {
+          var d = new Date(date),
+              month = '' + (d.getMonth() + 1),
+              day = '' + d.getDate(),
+              year = d.getFullYear();
+      
+          if (month.length < 2) 
+              month = '0' + month;
+          if (day.length < 2) 
+              day = '0' + day;
+      
+          return [year, month, day].join('-');
+      }
+
+         tabop['ID'] = '';
+         tabop['compteur'] = this.single_operation.compteur;
+         tabop['date_crea'] = formatDate(now);
+         tabop['datexp'] = this.single_operation.datexp
+         tabop['done'] = 0;
+         tabop['id_car'] = this.car_id;
+          tabop['id_user'] =  this.currentUserinfo.id;
+          tabop['kmexp'] = this.single_operation.nbkmnotif;
+          tabop['litres'] = this.single_operation.litres;
+          tabop['nbjournotif'] = this.single_operation.nbjournotif;
+          tabop['nbkmnotif'] = this.single_operation.kmexp;
+          tabop['operation_name'] = this.single_operation.operation_name;
+          tabop['price'] = this.single_operation.price;
+          tabop['type'] = this.single_operation.type;
+
+          
+
+          if (tab_length >= 4){
+
+          
+          }else{
+            biggertab.push(tabop); 
+          }
+          Object.values(this.listoperationalleveything).filter(  
+            (item) => { 
+            //  console.log(item);
+              biggertab.push(item);
+          });
+          //console.log(biggertab);
+//console.log(this.listoperationalleveything);
+     this.setStorageValue('listoperationalleveything',biggertab);
+
+  this.router.navigateByUrl(`/mycar/${this.car_id}`);
+  }else{
     this.UserServicesPage.addnewOperation( this.currentUserinfo.id ,this.car_id ,data ).subscribe(async (res) =>{
       if (res.inserted == 'success'){
   
@@ -128,6 +275,11 @@ whitespace;
       
       }
     });
+
+  }
+  
+  
+
 
   }
 

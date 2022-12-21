@@ -43,7 +43,7 @@ export class ListoperationsPage implements OnInit  {
   async ngOnInit() {
 
     await this.storage.create();
-  
+   this.ionViewDidEnter();
       }
       
       async ionViewDidEnter(){
@@ -66,16 +66,16 @@ export class ListoperationsPage implements OnInit  {
                     var newstr = str.replace(re, "-");
                     
                     this.whitespace = " ";
-                    var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+                    var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
 
                     this.checkIfImageExists(urlimagecar, (exists) => {
                      if (exists) {
-                       console.log('Image exists. ');
-                       this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+                     
+                       this.logo= '../../assets/logos/'+newstr.toLowerCase()+".png";
                
                      } else {
-                       console.error('Image does not exists.');
-                       this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                     
+                       this.logo = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
                      }
                    });                    
                     this.id_marque   =   this.currentCarinfo.marque;
@@ -92,20 +92,59 @@ export class ListoperationsPage implements OnInit  {
                 }).catch(e => {
                       console.log('error: '+ e);
                     }); 
+
+
+
+
+
+
+
+
+                    if (!this.onlineOffline){
+                      console.log("no internet");
+  
+  
+                      this.listoperationall = await   this.getStorageValue('listoperationalleveything').then(result => {
+                      
+                        return result;
+                    
+                          }).catch(e => {
+                                console.log('error: '+ e);
+                           });
+                           console.log('reslistoperationall',     this.listoperationall)
+                           if (Array.isArray(this.listoperationall)){
+                            this.listoperationlenght = true;
+                            Object.values(this.listoperationall).filter(  
+                              (item) => { 
+                               // console.log(item)
+                                if (item['type'] =='1'){
+                                  item['typename'] = 'Entretient'
+                                 }
+                                 if (item['type'] =='2'){
+                                  item['typename'] = 'Carburant'
+                                 }
+                                 if (item['type'] =='3'){
+                                  item['typename'] = 'Tax'
+                                 }
+                            } 
+                            );
+                          }
+  
+                    }else{
+
                     this.UserServicesPage.getlistOperation( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
                       
            
 
                       if (Array.isArray(res.listoperation)){
 
-                        
-
-           
                         this.listoperationall = res.listoperation;
                         this.listoperationlenght = true;
+                        console.log('reslistoperationall connecte ',     this.listoperationall)
+
                      Object.values(this.listoperationall).filter(  
                         (item) => { 
-                          console.log(item);
+                       //   console.log(item);
                           if (item['type'] =='1'){
                             item['typename'] = 'Entretient'
                            }
@@ -118,13 +157,11 @@ export class ListoperationsPage implements OnInit  {
                       }
                       );
                       
-                      
-                      
-                      
-                    
                     }
                     });
+                  }
       }
+      public onlineOffline: boolean = navigator.onLine;
       checkIfImageExists(url, callback) {
         const img = new Image();
         img.src = url;

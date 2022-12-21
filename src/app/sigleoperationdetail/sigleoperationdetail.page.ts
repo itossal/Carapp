@@ -5,12 +5,22 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormGroup, FormControl} from '@angular/forms';
 //import {Plugins} from '@capacitor/core';
 import {UserServicesPage} from 'src/app/dataServices/user-services/user-services.page';
-import {StorageServicesPage} from 'src/app/dataServices/storage-services/storage-services.page';
-import { AutoCompleteModule } from 'ionic4-auto-complete';
-import {map} from 'rxjs/operators';
-import { AutocompleteMarqueService } from '../services/autocomplete.service';
-import { ReactiveFormsModule } from '@angular/forms';
 
+import { AutocompleteMarqueService } from '../services/autocomplete.service';
+
+import { format } from 'date-fns';
+import { CommonModule } from '@angular/common';  
+import { BrowserModule } from '@angular/platform-browser';
+import {IonicModule} from '@ionic/angular'
+
+import { FormsModule } from '@angular/forms'; 
+import { ReactiveFormsModule } from '@angular/forms';
+@NgModule({
+  imports: [ IonicModule,CommonModule,
+    FormsModule,
+    ReactiveFormsModule],
+  declarations: [SigleoperationdetailPage]
+})
 
 @Component({
   selector: 'app-sigleoperationdetail',
@@ -18,7 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./sigleoperationdetail.page.scss'],
 })
 export class SigleoperationdetailPage implements OnInit {
-  public dateValue: any;
+
   currentUserinfo;
   car_id;
   datexp;
@@ -45,6 +55,12 @@ opstate;
 whitespace;
 nserie;
 datemajcpt;
+listoperationall;
+listoperationalleveything;
+showPicker = false;
+datevalue = format(new Date(), 'dd-MM-yyyy');
+datexpformatted;
+
   constructor(  public autocompletemarque : AutocompleteMarqueService,
     private router: Router,
     private http: HttpClient, 
@@ -56,7 +72,7 @@ datemajcpt;
   
       await this.storage.create();
       let now = new Date();
-      this.dateValue =   now.toLocaleDateString();
+  
       this.currentUserinfo = await this.getStorageValue('resuserData').then(result => {
       
         return result;
@@ -80,8 +96,41 @@ datemajcpt;
                     console.log('error: '+ e);
                   }); 
   
-              
-  
+                  this.listoperationalleveything= await this.getStorageValue('listoperationalleveything').then(result => {
+       
+                    return result;
+                  
+                    }).catch(e => {
+                          console.log('error: '+ e);
+                        }); 
+                        
+                        Object.values(this.listoperationalleveything).filter(  
+                          (item) => { 
+                         
+                           if (item['ID'] == this.operation_id ){
+                            console.log('item',item);
+
+                               this.compteur = item['compteur']  ;
+                            
+                        
+                               this.date_crea = item['date_crea'] ;
+                               this.kmexp = item['kmexp'] ;
+                               this.litres = item['litres'];
+                               this.nbjournotif = item['nbjournotif'];
+                               this.nbkmnotif = item['nbkmnotif'];
+                               this.operation_name = item['operation_name'];
+                              
+                               this.price = item['price'];
+                               this.type = item['type'];
+                          this.datexp = format(new Date( item['datexp']), 'dd-MM-yyyy HH:mm');
+                          this.datexpformatted = format(new Date( item['datexp']), 'dd-MM-yyyy HH:mm');
+
+                           }
+                        } 
+                        );     
+
+
+                        console.log('listoperationalleveything',this.listoperationalleveything);
                   this.id_marque =   this.currentCarinfo.marque;
                   this.name_marque =   this.currentCarinfo.marquename;
                   this.id_model =   this.currentCarinfo.model;
@@ -96,16 +145,16 @@ datemajcpt;
                   var newstr = str.replace(re, "-");
   
                   this.whitespace = " ";
-                      var urlimagecar = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+                      var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
   
                       this.checkIfImageExists(urlimagecar, (exists) => {
                        if (exists) {
                          console.log('Image exists. ');
-                         this.logo= 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".png";
+                         this.logo= '../../assets/logos/'+newstr.toLowerCase()+".png";
                  
                        } else {
                          console.error('Image does not exists.');
-                         this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                         this.logo = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
                        }
                      }); 
             
@@ -130,14 +179,17 @@ datemajcpt;
                   }
                 }
     single_operation: any={};
-    newOperation(){
+    async UpdateOperation(){
       console.log(this.single_operation);
       console.log(this.currentUserinfo);
     let  data = "operation_name="+this.single_operation.operation_name+"&type="+this.single_operation.type+"&compteur="+this.single_operation.compteur+"&price="+this.single_operation.price+"&litres="+this.single_operation.litres+"&datexp="+this.single_operation.datexp+"&nbjournotif="+this.single_operation.nbjournotif+"&kmexp="+this.single_operation.kmexp+"&nbkmnotif="+this.single_operation.nbkmnotif;
-      this.UserServicesPage.addnewOperation( this.currentUserinfo.id ,this.car_id ,data ).subscribe(async (res) =>{
-        if (res.inserted == 'success'){
+      this.UserServicesPage.updateOperation( this.currentUserinfo.id,this.operation_id ,this.car_id ,data ).subscribe(async (res) =>{
+        
+        console.log("res",res)
+        
+        if (res.updated == 'success'){
     
-          this.router.navigateByUrl(`/mycar/${this.car_id}`);
+         this.router.navigateByUrl(`/mycar/${this.car_id}`); 
         
         }
       });

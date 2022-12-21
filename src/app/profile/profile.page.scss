@@ -26,9 +26,9 @@
   
   .xc {
     display: block;
-    //justify-content: center;
+    height: max-content;
     align-items: center;
-    margin:2rem;
+    margin:1rem;
   }
 
   .btn_addcar{
@@ -53,9 +53,9 @@
 
   }
   .card-img-top {
-    width: 100%;
-    height: 46vw;
-    object-fit: cover;
+   
+    height: 100px;
+    object-fit: contain;
 }
 .marquename{
   font-size: 18px !important;
@@ -66,7 +66,7 @@
   padding-top: 0px !important;
 }
 .modelname{
-  font-size: 18px !important;
+  font-size: 15px !important;
 }
 .deconnection_link{
   text-align: center;

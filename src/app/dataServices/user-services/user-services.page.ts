@@ -190,6 +190,17 @@ export class UserServicesPage  {
                           return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=getlistoperationotif&user_id=${user_id}&car_id=${car_id}`,options));
                       
                         }
+                        getlistallOperationnotif(user_id): Observable<any> {
+                          var headers = new HttpHeaders();
+                          headers.append('Access-Control-Allow-Origin' , '*');
+                          headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT');
+                          headers.append('Accept','application/text');
+                          headers.append('content-type','application/json');
+                           let options = { headers:headers}; 
+                            return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=getlistalloperationotif&user_id=${user_id}`,options));
+                        
+                          }
+
                       getlistOperationbytype(user_id,car_id,type): Observable<any> {
                         var headers = new HttpHeaders();
                         headers.append('Access-Control-Allow-Origin' , '*');
@@ -242,7 +253,7 @@ export class UserServicesPage  {
                                 headers.append('Accept','application/text');
                                 headers.append('content-type','application/json');
                                  let options = { headers:headers}; 
-                                  return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=updatecar&${data}&car_id=${car_id}`,options));
+                                  return( this.http.get(`http://autoapp.it-open-sprite.com/carapp/cars.php?action=updatecar${data}&car_id=${car_id}`,options));
                               
                                 }    
                                 
