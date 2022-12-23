@@ -96,18 +96,19 @@ whitespace;
                 var newstr = str.replace(re, "-");
 
                 this.whitespace = " ";
-                    var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
-
-                    this.checkIfImageExists(urlimagecar, (exists) => {
-                     if (exists) {
-                       console.log('Image exists. ');
-                       this.logo= '../../assets/logos/'+newstr.toLowerCase()+".png";
-               
-                     } else {
-                       console.error('Image does not exists.');
-                       this.logo = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
-                     }
-                   }); 
+                var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+                          
+                this.checkIfImageExists(urlimagecar, (exists) => {
+                  if (exists) {
+                    console.log('Image exists. ');
+                    this.logo= '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+            
+                  } else {
+                    console.error('Image does not exists.');
+                    this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                 
+                  }
+                });
           
                
  
@@ -197,13 +198,6 @@ console.log('tab_length' ,  tab_length);
       this.setStorageValue('todolistoperation', todoarray);
           },1500);
         }
-
-    
-
-
-
-
-
       }
 
 
@@ -268,7 +262,7 @@ console.log('tab_length' ,  tab_length);
 
   this.router.navigateByUrl(`/mycar/${this.car_id}`);
   }else{
-    this.UserServicesPage.addnewOperation( this.currentUserinfo.id ,this.car_id ,data ).subscribe(async (res) =>{
+   var tabi = await this.UserServicesPage.addnewOperation( this.currentUserinfo.id ,this.car_id ,data ).subscribe(async (res) =>{
       if (res.inserted == 'success'){
   
         this.router.navigateByUrl(`/mycar/${this.car_id}`);

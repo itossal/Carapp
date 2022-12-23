@@ -68,6 +68,8 @@ datexpformatted;
     private UserServicesPage : UserServicesPage,
     public storage: Storage ) { }
     operation_id = this.route.snapshot.paramMap.get('id');
+   
+    public onlineOffline: boolean = navigator.onLine;
     async ngOnInit() {
   
       await this.storage.create();
@@ -95,7 +97,8 @@ datexpformatted;
               }).catch(e => {
                     console.log('error: '+ e);
                   }); 
-  
+              
+                  if (!this.onlineOffline){
                   this.listoperationalleveything= await this.getStorageValue('listoperationalleveything').then(result => {
        
                     return result;
@@ -103,13 +106,43 @@ datexpformatted;
                     }).catch(e => {
                           console.log('error: '+ e);
                         }); 
-                        
+
+
+                        console.log('listoperationalleveything',this.listoperationalleveything);
+                        this.id_marque =   this.currentCarinfo.marque;
+                        this.name_marque =   this.currentCarinfo.marquename;
+                        this.id_model =   this.currentCarinfo.model;
+                        this.name_model =   this.currentCarinfo.modelname;
+                        this.nserie =  this.currentCarinfo.nserie;
+                        this.compteur =  this.currentCarinfo.compteur;
+                        this.datemc =  this.currentCarinfo.datemc;
+                        this.datemajcpt =  this.currentCarinfo.date_maj_cmpt;
+        
+                        var re = / /gi; 
+                        var str = this.currentCarinfo.marquename;
+                        var newstr = str.replace(re, "-");
+        
+                        this.whitespace = " ";
+                        var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+                                
+                        this.checkIfImageExists(urlimagecar, (exists) => {
+                          if (exists) {
+                            console.log('Image exists. ');
+                            this.logo= '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+                    
+                          } else {
+                            console.error('Image does not exists.');
+                            this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                         
+                          }
+                        });
+      
                         Object.values(this.listoperationalleveything).filter(  
                           (item) => { 
                          
                            if (item['ID'] == this.operation_id ){
                             console.log('item',item);
-
+      
                                this.compteur = item['compteur']  ;
                             
                         
@@ -124,39 +157,92 @@ datexpformatted;
                                this.type = item['type'];
                           this.datexp = format(new Date( item['datexp']), 'dd-MM-yyyy HH:mm');
                           this.datexpformatted = format(new Date( item['datexp']), 'dd-MM-yyyy HH:mm');
-
+      
                            }
                         } 
-                        );     
+                        );   
+                      }else{
+
+                  
+                       await   this.UserServicesPage.getlistallOperationnotif( this.currentUserinfo.id ).subscribe(async (res) =>{
+                     
+                        console.log( res.listoperation);
+                        this.setStorageValue('listoperationalleveything', res.listoperation);
+                        this.listoperationalleveything = res.listoperation;
+                        
+                          
+
+                        
+
+                        this.id_marque =   this.currentCarinfo.marque;
+                        this.name_marque =   this.currentCarinfo.marquename;
+                        this.id_model =   this.currentCarinfo.model;
+                        this.name_model =   this.currentCarinfo.modelname;
+                        this.nserie =  this.currentCarinfo.nserie;
+                        this.compteur =  this.currentCarinfo.compteur;
+                        this.datemc =  this.currentCarinfo.datemc;
+                        this.datemajcpt =  this.currentCarinfo.date_maj_cmpt;
+        
+                        var re = / /gi; 
+                        var str = this.currentCarinfo.marquename;
+                        var newstr = str.replace(re, "-");
+        
+                        this.whitespace = " ";
+                        var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+                                
+                        this.checkIfImageExists(urlimagecar, (exists) => {
+                          if (exists) {
+                            console.log('Image exists. ');
+                            this.logo= '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+                    
+                          } else {
+                            console.error('Image does not exists.');
+                            this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                         
+                          }
+                        });
+      
+                        Object.values( this.listoperationalleveything).filter(  
+                          (item) => { 
+                         
+                           if (item['ID'] == this.operation_id ){
+                            console.log('item',item);
+      
+                               this.compteur = item['compteur']  ;
+                            
+                        
+                               this.date_crea = item['date_crea'] ;
+                               this.kmexp = item['kmexp'] ;
+                               this.litres = item['litres'];
+                               this.nbjournotif = item['nbjournotif'];
+                               this.nbkmnotif = item['nbkmnotif'];
+                               this.operation_name = item['operation_name'];
+                              
+                               this.price = item['price'];
+                               this.type = item['type'];
+                          this.datexp = format(new Date( item['datexp']), 'dd-MM-yyyy HH:mm');
+                          this.datexpformatted = format(new Date( item['datexp']), 'dd-MM-yyyy HH:mm');
+      
+                           }
+                        } 
+                        ); 
 
 
-                        console.log('listoperationalleveything',this.listoperationalleveything);
-                  this.id_marque =   this.currentCarinfo.marque;
-                  this.name_marque =   this.currentCarinfo.marquename;
-                  this.id_model =   this.currentCarinfo.model;
-                  this.name_model =   this.currentCarinfo.modelname;
-                  this.nserie =  this.currentCarinfo.nserie;
-                  this.compteur =  this.currentCarinfo.compteur;
-                  this.datemc =  this.currentCarinfo.datemc;
-                  this.datemajcpt =  this.currentCarinfo.date_maj_cmpt;
+
+
+
+                        
+                        });
+                        
+         
+
   
-                  var re = / /gi; 
-                  var str = this.currentCarinfo.marquename;
-                  var newstr = str.replace(re, "-");
-  
-                  this.whitespace = " ";
-                      var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
-  
-                      this.checkIfImageExists(urlimagecar, (exists) => {
-                       if (exists) {
-                         console.log('Image exists. ');
-                         this.logo= '../../assets/logos/'+newstr.toLowerCase()+".png";
-                 
-                       } else {
-                         console.error('Image does not exists.');
-                         this.logo = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
-                       }
-                     }); 
+                      }
+                     
+
+
+                   
+                     
             
                  
    

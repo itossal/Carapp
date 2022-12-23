@@ -66,18 +66,21 @@ export class ListoperationsPage implements OnInit  {
                     var newstr = str.replace(re, "-");
                     
                     this.whitespace = " ";
-                    var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
-
-                    this.checkIfImageExists(urlimagecar, (exists) => {
-                     if (exists) {
-                     
-                       this.logo= '../../assets/logos/'+newstr.toLowerCase()+".png";
-               
-                     } else {
-                     
-                       this.logo = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
-                     }
-                   });                    
+                 
+                   
+                   var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+                          
+                  this.checkIfImageExists(urlimagecar, (exists) => {
+                    if (exists) {
+                      console.log('Image exists. ');
+                      this.logo= '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+              
+                    } else {
+                      console.error('Image does not exists.');
+                      this.logo = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
+                   
+                    }
+                  });
                     this.id_marque   =   this.currentCarinfo.marque;
                     this.name_marque =   this.currentCarinfo.marquename;
                     this.id_model    =   this.currentCarinfo.model;
@@ -92,11 +95,6 @@ export class ListoperationsPage implements OnInit  {
                 }).catch(e => {
                       console.log('error: '+ e);
                     }); 
-
-
-
-
-
 
 
 
@@ -132,7 +130,7 @@ export class ListoperationsPage implements OnInit  {
   
                     }else{
 
-                    this.UserServicesPage.getlistOperation( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
+                      var tab = await    this.UserServicesPage.getlistOperation( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
                       
            
 
@@ -178,17 +176,17 @@ export class ListoperationsPage implements OnInit  {
           };
         }
       }
-  segmentButtonClicked(ev: any) {
+async  segmentButtonClicked(ev: any) {
    //console.log('Segment button clicked', ev);  
     const value = ev.target.value;
     console.log('Segment button clicked value', value);  
     if (value == 'entretien'){
-      this.UserServicesPage.getlistOperationbytype( this.currentUserinfo.id ,this.car_id,1).subscribe(async (res) =>{
+      var tab = await    this.UserServicesPage.getlistOperationbytype( this.currentUserinfo.id ,this.car_id,1).subscribe(async (res) =>{
         if (res.listoperation ){
     
         
           this.listoperationall = res.listoperation;
-        
+          this.listoperationlenght = true;
        Object.values(this.listoperationall).filter(  
           (item) => { 
             console.log(item);
@@ -207,12 +205,12 @@ export class ListoperationsPage implements OnInit  {
       });
     }
     if (value == 'carburant'){
-      this.UserServicesPage.getlistOperationbytype( this.currentUserinfo.id ,this.car_id,2).subscribe(async (res) =>{
+      var tab = await    this.UserServicesPage.getlistOperationbytype( this.currentUserinfo.id ,this.car_id,2).subscribe(async (res) =>{
         if (res.listoperation ){
     
           this.listoperationall = res.listoperation;
         
-        
+          this.listoperationlenght = true;
        Object.values(this.listoperationall).filter(  
           (item) => { 
             console.log(item);
@@ -231,12 +229,12 @@ export class ListoperationsPage implements OnInit  {
       });
     }
     if (value == 'tax'){
-      this.UserServicesPage.getlistOperationbytype( this.currentUserinfo.id ,this.car_id,3).subscribe(async (res) =>{
+      var tab = await  this.UserServicesPage.getlistOperationbytype( this.currentUserinfo.id ,this.car_id,3).subscribe(async (res) =>{
         if (res.listoperation ){
     
         
           this.listoperationall = res.listoperation;
-        
+          this.listoperationlenght = true;
        Object.values(this.listoperationall).filter(  
           (item) => { 
             console.log(item);
@@ -255,10 +253,10 @@ export class ListoperationsPage implements OnInit  {
       });
     }
     if (value == 'all'){
-      this.UserServicesPage.getlistOperation( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
+      var tab = await    this.UserServicesPage.getlistOperation( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
         if (res.listoperation ){
           this.listoperationall = res.listoperation;
-        
+          this.listoperationlenght = true;
        Object.values(this.listoperationall).filter(  
           (item) => { 
             console.log(item);
@@ -292,7 +290,33 @@ export class ListoperationsPage implements OnInit  {
       }
 
 
+async Getoperationhistory(){
 
+ var tab = await this.UserServicesPage.getlistOperationalltime( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
+    if (res.listoperation ){
+      this.listoperationall = res.listoperation;
+      this.listoperationlenght = true;
+   Object.values(this.listoperationall).filter(  
+      (item) => { 
+        console.log(item);
+        if (item['type'] =='1'){
+          item['typename'] = 'Entretient'
+         }
+         if (item['type'] =='2'){
+          item['typename'] = 'Carburant'
+         }
+         if (item['type'] =='3'){
+          item['typename'] = 'Tax'
+         }
+    }
+    );
+    
+    
+    
+    
+    }
+  });
+}
 
 
 

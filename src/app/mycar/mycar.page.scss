@@ -72,7 +72,7 @@ ion-datetime {
     font-size: 21px !important;
     font-weight: bold; 
     width: 90%;
-    display: table;
+   /* display: table;*/
     margin: 0 auto;
   }
   .btn_addcarprimec{
@@ -87,7 +87,7 @@ ion-datetime {
     font-size: 21px !important;
     font-weight: bold; 
     width: 90%;
-    display: table;
+   /* display: table;*/
     margin: 0 auto;
   }
 
@@ -139,4 +139,5 @@ ion-datetime {
     --width: 80% !important;
 
     margin-left: -42px !important;
+    margin-top: -170px;
   }

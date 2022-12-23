@@ -118,19 +118,19 @@ export class ProfilePage implements OnInit {
         var newstr = str.replace(re, "-");
   
   
-        var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
-  
+        var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+              
        this.checkIfImageExists(urlimagecar, (exists) => {
         if (exists) {
           console.log('Image exists. ');
-          item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".png";
+          item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
   
          // this.readAsBase64(item['logo'],newstr.toLowerCase());
   
           
         } else {
           console.error('Image does not exists.');
-          item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+          item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
          // this.readAsBase64(item['logo'],newstr.toLowerCase());
         }
       });
@@ -211,20 +211,30 @@ export class ProfilePage implements OnInit {
       var newstr = str.replace(re, "-");
 
       
-      var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
+
+
+
+ 
+              
+   
+
+
+
+
+
+     var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
 
      this.checkIfImageExists(urlimagecar, (exists) => {
       if (exists) {
       //  console.log('Image exists. ');
-        item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".png";
+        item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
 
        // this.readAsBase64(item['logo'],newstr.toLowerCase());
 
         
       } else {
      //   console.error('Image does not exists.');
-        item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
-       // this.readAsBase64(item['logo'],newstr.toLowerCase());
+     item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";       // this.readAsBase64(item['logo'],newstr.toLowerCase());
       }
       xtab.push(item);
       this.setStorageValue('resuserCarsdetailed',xtab);
@@ -309,19 +319,19 @@ async ionViewDidEnter(){
       var newstr = str.replace(re, "-");
 
 
-      var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
+      var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
 
      this.checkIfImageExists(urlimagecar, (exists) => {
       if (exists) {
        // console.log('Image exists. ');
-        item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".png";
+        item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
 
        // this.readAsBase64(item['logo'],newstr.toLowerCase());
 
         
       } else {
        // console.error('Image does not exists.');
-        item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+        item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
        // this.readAsBase64(item['logo'],newstr.toLowerCase());
       }
     });
@@ -356,16 +366,16 @@ async ionViewDidEnter(){
     var newstr = str.replace(re, "-");
 
 
-    var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".png";
+    var urlimagecar = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
 
    this.checkIfImageExists(urlimagecar, (exists) => {
     if (exists) {
      // console.log('Image exists. ');
-      item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".png";
+      item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
 
     } else {
      // console.error('Image does not exists.');
-      item['logo'] = '../../assets/logos/'+newstr.toLowerCase()+".jpg";
+      item['logo'] = 'http://autoapp.it-open-sprite.com/carapp/logos/'+newstr.toLowerCase()+".jpg";
     }
   });
   

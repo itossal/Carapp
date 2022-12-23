@@ -243,7 +243,7 @@ public dateValue: any;
                         }
                    
                   }else{
-                    this.UserServicesPage.getlistOperationnotif( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
+                    var tab = await   this.UserServicesPage.getlistOperationnotif( this.currentUserinfo.id ,this.car_id).subscribe(async (res) =>{
                      
                       if (Array.isArray(res.listoperation)){
                         res.listoperation = res.listoperation.slice(0,5);  
@@ -376,7 +376,7 @@ public dateValue: any;
      return; 
      }
   if (this.id_marque>0){
-    this.UserServicesPage.getCarsModels(this.id_marque).subscribe(async (res) =>{
+    var tab = await   this.UserServicesPage.getCarsModels(this.id_marque).subscribe(async (res) =>{
       console.log(this.id_marque);
       console.log(res);
       this.modelitems =res; 
@@ -398,7 +398,7 @@ public dateValue: any;
   
   });
   }else{
-    this.UserServicesPage.getCarsModelsall().subscribe(async (res) =>{
+    var tab = await   this.UserServicesPage.getCarsModelsall().subscribe(async (res) =>{
       console.log(this.id_marque);
       console.log(res);
       this.modelitems =res; 
@@ -467,13 +467,13 @@ public dateValue: any;
   
   }
   
-  compteurChanged(){
+async  compteurChanged(){
     const input = document.getElementById('compteur') as HTMLInputElement | null;
 
     let valuecptr = input?.value;
 
 
-    this.UserServicesPage.changeCarcompteur(this.currentUserinfo.id,this.car_id,valuecptr).subscribe(async (res) =>{
+    var tab = await   this.UserServicesPage.changeCarcompteur(this.currentUserinfo.id,this.car_id,valuecptr).subscribe(async (res) =>{
   
       console.log(res);
       if(res.compteurupdated == "success"){
